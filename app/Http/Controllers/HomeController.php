@@ -431,8 +431,9 @@ class HomeController extends Controller
         $addItem = ([            
             'title' => $request->title,
             'type' => $request->type,
-            'image' => $imageUrlimageUrl,
+            'image' => $imageUrl,
             'description' => $request->description,
+            'link' => $request->link
         ]);
 
         if(Section::create($addItem)){
@@ -466,6 +467,10 @@ class HomeController extends Controller
 
         if(!empty($request->type) &&  $request->type != $section->type){
             $section->type = $request->type;
+        }
+
+        if(!empty($request->link) &&  $request->link != $section->link){
+            $section->link = $request->link;
         }
 
         if(!empty($request->image)){
@@ -502,6 +507,372 @@ class HomeController extends Controller
         }
 
         if($section->delete()){ 
+            alert()->success('Record Deleted', '')->persistent('Close');
+            return redirect()->back();
+        }
+
+
+        alert()->error('Oops!', 'Something went wrong')->persistent('Close');
+        return redirect()->back();
+    }
+
+    public function events(){
+        $events = Event::all();
+
+        return view('events', [
+            'events' => $events 
+        ]);
+    }
+
+    public function addEvent(Request $request){
+        $validator = Validator::make($request->all(), [
+            'title' => 'required',
+            'description' => 'required',
+            'image' => 'required',
+            'date' => 'required',
+            'about' => 'required',
+            'days' => 'required',
+            'ticket_amount' => 'nullable',
+            'exhibition_amount' => 'nullable',
+        ]);
+
+        if($validator->fails()) {
+            alert()->error('Error', $validator->messages()->all()[0])->persistent('Close');
+            return redirect()->back();
+        }
+
+        if(!empty($request->title)){
+            $slug = strtolower(trim(preg_replace('/[^A-Za-z0-9-]+/', '-', $request->title)));
+        }
+
+        $imageUrl = 'uploads/event/'.$slug.'.'.$request->file('image')->getClientOriginalExtension();
+        $image = $request->file('image')->move('uploads/event', $imageUrl);
+
+        $addEvent = ([            
+            'title' => $request->title,
+            'image' => $imageUrl,
+            'description' => $request->description,
+            'date' => $request->date,
+            'days' => $request->days,
+            'about' => $request->about,
+            'ticket_amount' => $request->ticket_amount,
+            'exhibition_amount' => $request->exhibition_amount,
+            'slug' => $slug
+        ]);
+
+        if(Event::create($addEvent)){
+            alert()->success('Event added successfully', '')->persistent('Close');
+            return redirect()->back();
+        }
+
+        alert()->error('Oops!', 'Something went wrong')->persistent('Close');
+        return redirect()->back();
+    }
+
+    public function updateEvent(Request $request){
+        $validator = Validator::make($request->all(), [
+            'event_id' => 'required|min:1',
+        ]);
+
+
+        if($validator->fails()) {
+            alert()->error('Error', $validator->messages()->all()[0])->persistent('Close');
+            return redirect()->back();
+        }
+
+        if(!$event = Event::find($request->event_id)){
+            alert()->error('Oops', 'Invalid Event ')->persistent('Close');
+            return redirect()->back();
+        }
+
+        if(!empty($request->title) &&  $request->title != $event->title){
+            $slug = strtolower(trim(preg_replace('/[^A-Za-z0-9-]+/', '-', $request->title)));
+
+            $event->title = $request->title;
+            $event->slug = $slug;
+        }
+
+        if(!empty($request->description) &&  $request->description != $event->description){
+            $event->description = $request->description;
+        }
+
+        if(!empty($request->days) &&  $request->days != $event->days){
+            $event->days = $request->days;
+        }
+
+        if(!empty($request->about) &&  $request->about != $event->about){
+            $event->about = $request->about;
+        }
+
+        if(!empty($request->ticket_amount) &&  $request->ticket_amount != $event->ticket_amount){
+            $event->ticket_amount = $request->ticket_amount;
+        }
+
+        if(!empty($request->exhibition_amount) &&  $request->exhibition_amount != $event->exhibition_amount){
+            $event->exhibition_amount = $request->exhibition_amount;
+        }
+
+        if(!empty($request->image)){
+
+            $imageUrl = 'uploads/event/'.$slug.'.'.$request->file('image')->getClientOriginalExtension();
+            $image = $request->file('image')->move('uploads/event', $imageUrl);
+
+            $slider->image = $imageUrl;
+        }
+
+
+        if($event->save()){
+            alert()->success('Changes Saved', 'Section changes saved successfully')->persistent('Close');
+            return redirect()->back();
+        }
+    }
+
+    public function deleteEvent(Request $request){
+        $validator = Validator::make($request->all(), [
+            'event_id' => 'required|min:1',
+        ]);
+
+        if($validator->fails()) {
+            alert()->error('Error', $validator->messages()->all()[0])->persistent('Close');
+            return redirect()->back();
+        }
+
+        if(!$event = Event::find($request->event_id)){
+            alert()->error('Oops', 'Invalid Event ')->persistent('Close');
+            return redirect()->back();
+        }
+
+        if($event->delete()){ 
+            alert()->success('Record Deleted', '')->persistent('Close');
+            return redirect()->back();
+        }
+
+
+        alert()->error('Oops!', 'Something went wrong')->persistent('Close');
+        return redirect()->back();
+    }
+
+    public function event($slug){
+        $event = Event::with('features', 'sponsors', 'schedules', 'blogs')->where('slug', $slug)->first();
+
+        return view('event', [
+            'event' => $event 
+        ]);
+    }
+
+    public function addFeature(Request $request){
+        $validator = Validator::make($request->all(), [
+            'name' => 'required',
+            'description' => 'required',
+            'image' => 'required|image',
+            'position' => 'required',
+            'linkedin' => 'required',
+            'instagram' => 'required',
+            'facebook' => 'required',
+            'type' => 'required',
+        ]);
+
+        if($validator->fails()) {
+            alert()->error('Error', $validator->messages()->all()[0])->persistent('Close');
+            return redirect()->back();
+        }
+
+        if(!empty($request->name)){
+            $slug = strtolower(trim(preg_replace('/[^A-Za-z0-9-]+/', '-', $request->title)));
+        }
+
+        $imageUrl = 'uploads/feature/'.$slug.'.'.$request->file('image')->getClientOriginalExtension();
+        $image = $request->file('image')->move('uploads/feature', $imageUrl);
+
+        $addFeature = ([        
+            'event_id' => $request->event_id,    
+            'name' => $request->name,
+            'image' => $imageUrl,
+            'description' => $request->description,
+            'position' => $request->position,
+            'linkedin' => $request->linkedin,
+            'instagram' => $request->instagram,
+            'facebook' => $request->facebook,
+            'type' => $request->type,
+        ]);
+
+        if(Feature::create($addFeature)){
+            alert()->success('Feature added successfully', '')->persistent('Close');
+            return redirect()->back();
+        }
+
+        alert()->error('Oops!', 'Something went wrong')->persistent('Close');
+        return redirect()->back();
+    }
+
+    public function updateFeature(Request $request){
+        $validator = Validator::make($request->all(), [
+            'feature_id' => 'required|min:1',
+        ]);
+
+
+        if($validator->fails()) {
+            alert()->error('Error', $validator->messages()->all()[0])->persistent('Close');
+            return redirect()->back();
+        }
+
+        if(!$feature = Feature::find($request->feature_id)){
+            alert()->error('Oops', 'Invalid Feature ')->persistent('Close');
+            return redirect()->back();
+        }
+
+        if(!empty($request->name) &&  $request->name != $feature->name){
+            $slug = strtolower(trim(preg_replace('/[^A-Za-z0-9-]+/', '-', $request->name)));
+
+            $feature->name = $request->name;
+        }
+
+        if(!empty($request->description) &&  $request->description != $feature->description){
+            $feature->description = $request->description;
+        }
+
+        if(!empty($request->type) &&  $request->type != $feature->type){
+            $feature->type = $request->type;
+        }
+
+        if(!empty($request->position) &&  $request->position != $feature->position){
+            $feature->position = $request->position;
+        }
+
+        if(!empty($request->linkedin) &&  $request->linkedin != $feature->linkedin){
+            $feature->linkedin = $request->linkedin;
+        }
+
+        if(!empty($request->instagram) &&  $request->instagram != $feature->instagram){
+            $feature->instagram = $request->instagram;
+        }
+
+        if(!empty($request->facebook) &&  $request->facebook != $feature->facebook){
+            $feature->facebook = $request->facebook;
+        }
+
+        if(!empty($request->image)){
+
+            $imageUrl = 'uploads/feature/'.$slug.'.'.$request->file('image')->getClientOriginalExtension();
+            $image = $request->file('image')->move('uploads/feature', $imageUrl);
+
+            $feature->image = $imageUrl;
+        }
+
+        if($feature->save()){
+            alert()->success('Changes Saved', 'Feature changes saved successfully')->persistent('Close');
+            return redirect()->back();
+        }
+    }
+
+    public function deleteFeature(Request $request){
+        $validator = Validator::make($request->all(), [
+            'feature_id' => 'required|min:1',
+        ]);
+
+        if($validator->fails()) {
+            alert()->error('Error', $validator->messages()->all()[0])->persistent('Close');
+            return redirect()->back();
+        }
+
+        if(!$feature = Feature::find($request->feature_id)){
+            alert()->error('Oops', 'Invalid Feature ')->persistent('Close');
+            return redirect()->back();
+        }
+
+        if($feature->delete()){ 
+            alert()->success('Record Deleted', '')->persistent('Close');
+            return redirect()->back();
+        }
+
+
+        alert()->error('Oops!', 'Something went wrong')->persistent('Close');
+        return redirect()->back();
+    }
+
+    public function addSponsor(Request $request){
+        $validator = Validator::make($request->all(), [
+            'image' => 'required|image',
+            'link' => 'required'
+        ]);
+
+        if($validator->fails()) {
+            alert()->error('Error', $validator->messages()->all()[0])->persistent('Close');
+            return redirect()->back();
+        }
+
+        $slug = time();
+
+        $imageUrl = 'uploads/sponsor/'.$slug.'.'.$request->file('image')->getClientOriginalExtension();
+        $image = $request->file('image')->move('uploads/sponsor', $imageUrl);
+
+        $addSponsor = ([        
+            'event_id' => $request->event_id,    
+            'image' => $imageUrl,
+            'link' => $request->link
+        ]);
+
+        if(Sponsor::create($addSponsor)){
+            alert()->success('Sponsor added successfully', '')->persistent('Close');
+            return redirect()->back();
+        }
+
+        alert()->error('Oops!', 'Something went wrong')->persistent('Close');
+        return redirect()->back();
+    }
+
+    public function updateSponsor(Request $request){
+        $validator = Validator::make($request->all(), [
+            'sponsor_id' => 'required|min:1',
+        ]);
+
+
+        if($validator->fails()) {
+            alert()->error('Error', $validator->messages()->all()[0])->persistent('Close');
+            return redirect()->back();
+        }
+
+        if(!$sponsor = Sponsor::find($request->sponsor_id)){
+            alert()->error('Oops', 'Invalid Sponsor ')->persistent('Close');
+            return redirect()->back();
+        }
+
+        $slug = time();
+
+        if(!empty($request->link) &&  $request->link != $sponsor->link){
+            $sponsor->link = $sponsor->link;
+        }
+
+        if(!empty($request->image)){
+
+            $imageUrl = 'uploads/sponsor/'.$slug.'.'.$request->file('image')->getClientOriginalExtension();
+            $image = $request->file('image')->move('uploads/sponsor', $imageUrl);
+
+            $sponsor->image = $imageUrl;
+        }
+
+        if($feature->save()){
+            alert()->success('Changes Saved', 'Sponsor changes saved successfully')->persistent('Close');
+            return redirect()->back();
+        }
+    }
+
+    public function deleteSponsor(Request $request){
+        $validator = Validator::make($request->all(), [
+            'sponsor_id' => 'required|min:1',
+        ]);
+
+        if($validator->fails()) {
+            alert()->error('Error', $validator->messages()->all()[0])->persistent('Close');
+            return redirect()->back();
+        }
+
+        if(!$sponsor = Sponsor::find($request->sponsor_id)){
+            alert()->error('Oops', 'Invalid Sponsor ')->persistent('Close');
+            return redirect()->back();
+        }
+
+        if($sponsor->delete()){ 
             alert()->success('Record Deleted', '')->persistent('Close');
             return redirect()->back();
         }

@@ -46,6 +46,7 @@
                                             <th scope="col">Description</th>
                                             <th scope="col">Image</th>
                                             <th scope="col">Type</th>
+                                            <th scope="col">Link</th>
                                             <th scope="col"></th>
                                         </tr>
                                     </thead>
@@ -57,6 +58,7 @@
                                             <td>{!! $section->description !!}</td>
                                             <td><img class="rounded shadow" alt="{{ $section->image }}" width="30%" src="{{ asset($section->image) }}"></td>
                                             <td>{{ $section->type }}</td>
+                                            <td>{{ $section->link }}</td>
                                             <td>{{ date('F jS, Y \a\t g:i A', strtotime($section->created_at)) }}</td>
                                             <td>
                                                 <div class="hstack gap-3 fs-15">
@@ -74,7 +76,7 @@
                                                                         <lord-icon src="https://cdn.lordicon.com/wwneckwc.json" trigger="hover" style="width:150px;height:150px">
                                                                         </lord-icon>
                                                                         <h4 class="mb-3 mt-4">Are you sure you want to delete <br/> {{ $section->title }}?</h4>
-                                                                        <form action="{{ url('/admin/deleteSectionItem') }}" method="POST">
+                                                                        <form action="{{ url('/deleteSectionItem') }}" method="POST">
                                                                             @csrf
                                                                             <input name="section_id" type="hidden" value="{{$section->id}}">
                                                                             <hr>
@@ -98,7 +100,7 @@
                                                                 </div>
                                         
                                                                 <div class="modal-body">
-                                                                    <form action="{{ url('/admin/updateSectionItem') }}" method="post" enctype="multipart/form-data">
+                                                                    <form action="{{ url('/updateSectionItem') }}" method="post" enctype="multipart/form-data">
                                                                         @csrf
 
                                                                         <input name="section_id" type="hidden" value="{{$section->id}}">
@@ -123,7 +125,13 @@
                                                                                 <option value="testimonial">Testimonial</option>
                                                                                 <option value="blog">Blog</option>
                                                                                 <option value="sponsor">Sponsor</option>
+                                                                                <option value="youtube">Youtube</option>
                                                                             </select>
+                                                                        </div>
+                                                                        
+                                                                        <div class="mb-3">
+                                                                            <label for="link" class="form-label">Youtube Link</label>
+                                                                            <input type="text" class="form-control" name="link" id="link" value="{{ $section->link }}">
                                                                         </div>
                                             
                                                                         <div class="mb-3">
@@ -165,7 +173,7 @@
                     </div>
 
                     <div class="modal-body">
-                        <form action="{{ url('/admin/addSectionItem') }}" method="post" enctype="multipart/form-data">
+                        <form action="{{ url('/addSectionItem') }}" method="post" enctype="multipart/form-data">
                             @csrf
                             <div class="mb-3">
                                 <label for="title" class="form-label">Title</label>
@@ -187,7 +195,13 @@
                                     <option value="testimonial">Testimonial</option>
                                     <option value="blog">Blog</option>
                                     <option value="sponsor">Sponsor</option>
+                                    <option value="youtube">Youtube</option>
                                 </select>
+                            </div>
+
+                            <div class="mb-3">
+                                <label for="link" class="form-label">Youtube Link</label>
+                                <input type="text" class="form-control" name="link" id="link">
                             </div>
 
                             <div class="mb-3">

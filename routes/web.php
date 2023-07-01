@@ -39,3 +39,16 @@ Route::post('/addSectionItem', [App\Http\Controllers\HomeController::class, 'add
 Route::post('/updateSectionItem', [App\Http\Controllers\HomeController::class, 'updateSectionItem'])->name('updateSectionItem');
 Route::post('/deleteSectionItem', [App\Http\Controllers\HomeController::class, 'deleteSectionItem'])->name('deleteSectionItem');
   
+Route::get('events', [App\Http\Controllers\HomeController::class, 'events'])->name('events');
+Route::post('/addEvent', [App\Http\Controllers\HomeController::class, 'addEvent'])->name('addEvent');
+Route::post('/updateEvent', [App\Http\Controllers\HomeController::class, 'updateEvent'])->name('updateEvent');
+Route::post('/deleteEvent', [App\Http\Controllers\HomeController::class, 'deleteEvent'])->name('deleteEvent');
+
+Route::get('event/{slug}', [App\Http\Controllers\HomeController::class, 'event'])->name('event');
+Route::post('/addFeature', [App\Http\Controllers\HomeController::class, 'addFeature'])->name('addFeature');
+Route::post('/updateFeature', [App\Http\Controllers\HomeController::class, 'updateFeature'])->name('updateFeature');
+Route::post('/deleteFeature', [App\Http\Controllers\HomeController::class, 'deleteFeature'])->name('deleteFeature');
+
+Route::post('/addSponsor', [App\Http\Controllers\HomeController::class, 'addSponsor'])->name('addSponsor');
+Route::post('/updateSponsor', [App\Http\Controllers\HomeController::class, 'updateSponsor'])->name('updateSponsor');
+Route::post('/deleteSponsor', [App\Http\Controllers\HomeController::class, 'deleteSponsor'])->name('deleteSponsor');
