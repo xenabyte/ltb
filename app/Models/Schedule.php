@@ -23,6 +23,7 @@ class Schedule extends Model
         'location', 
         'start_time', 
         'end_time', 
-        'date'
+        'date',
+        'title'
     ];
 }

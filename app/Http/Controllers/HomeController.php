@@ -851,7 +851,7 @@ class HomeController extends Controller
             $sponsor->image = $imageUrl;
         }
 
-        if($feature->save()){
+        if($sponsor->save()){
             alert()->success('Changes Saved', 'Sponsor changes saved successfully')->persistent('Close');
             return redirect()->back();
         }
@@ -873,6 +873,122 @@ class HomeController extends Controller
         }
 
         if($sponsor->delete()){ 
+            alert()->success('Record Deleted', '')->persistent('Close');
+            return redirect()->back();
+        }
+
+
+        alert()->error('Oops!', 'Something went wrong')->persistent('Close');
+        return redirect()->back();
+    }
+
+    public function addSchedule(Request $request){
+        $validator = Validator::make($request->all(), [
+            'day' => 'required',
+            'location' => 'required',
+            'start_time' => 'required',
+            'end_time' => 'required',
+            'date' => 'required',
+            'title' => 'required'
+        ]);
+
+        if($validator->fails()) {
+            alert()->error('Error', $validator->messages()->all()[0])->persistent('Close');
+            return redirect()->back();
+        }
+
+        if(!$event = Event::find($request->event_id)){
+            alert()->error('Oops', 'Invalid Event ')->persistent('Close');
+            return redirect()->back();
+        }
+
+        if($request->day > $event->days){
+            alert()->error('Oops', 'Schedule day is greater than event days ')->persistent('Close');
+            return redirect()->back();
+        }
+       
+        $addSchedule = ([        
+            'event_id' => $request->event_id,    
+            'day' => $request->day,
+            'location' => $request->location,
+            'start_time' => $request->start_time,
+            'end_time' => $request->end_time,
+            'date' => $request->date,
+            'title' => $request->title,
+        ]);
+
+        if(Schedule::create($addSchedule)){
+            alert()->success('Schedule added successfully', '')->persistent('Close');
+            return redirect()->back();
+        }
+
+        alert()->error('Oops!', 'Something went wrong')->persistent('Close');
+        return redirect()->back();
+    }
+
+    public function updateSchedule(Request $request){
+        $validator = Validator::make($request->all(), [
+            'schedule_id' => 'required|min:1',
+        ]);
+
+
+        if($validator->fails()) {
+            alert()->error('Error', $validator->messages()->all()[0])->persistent('Close');
+            return redirect()->back();
+        }
+
+        if(!$schedule = Schedule::find($request->schedule_id)){
+            alert()->error('Oops', 'Invalid Schedule ')->persistent('Close');
+            return redirect()->back();
+        }
+
+        if(!empty($request->day) &&  $request->day != $schedule->day){
+            $schedule->day = $schedule->day;
+        }
+
+        if(!empty($request->location) &&  $request->location != $schedule->locationlocation){
+            $schedule->location = $schedule->location;
+        }
+
+        if(!empty($request->start_time) &&  $request->start_time != $schedule->start_time){
+            $schedule->link = $schedule->link;
+        }
+
+        if(!empty($request->end_time) &&  $request->end_time != $schedule->end_time){
+            $schedule->end_time = $schedule->end_time;
+        }
+
+        if(!empty($request->date) &&  $request->date != $schedule->date){
+            $schedule->date = $schedule->date;
+        }
+
+        if(!empty($request->title) &&  $request->title != $schedule->title){
+            $schedule->title = $schedule->title;
+        }
+
+
+        if($feature->save()){
+            alert()->success('Changes Saved', 'Schedule changes saved successfully')->persistent('Close');
+            return redirect()->back();
+        }
+    }
+
+    public function deleteSchedule(Request $request){
+        $validator = Validator::make($request->all(), [
+            'schedule_id' => 'required|min:1',
+        ]);
+
+        if($validator->fails()) {
+            alert()->error('Error', $validator->messages()->all()[0])->persistent('Close');
+            return redirect()->back();
+        }
+
+        if(!$schedule = Schedule::find($request->schedule_id)){
+            alert()->error('Oops', 'Invalid Schedule ')->persistent('Close');
+            return redirect()->back();
+        }
+
+        if($schedule->delete()){ 
             alert()->success('Record Deleted', '')->persistent('Close');
             return redirect()->back();
         }

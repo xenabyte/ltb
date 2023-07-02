@@ -251,7 +251,7 @@
                             <table class="table table-borderless table-nowrap align-middle mb-0">
                                 <thead class="table-light text-muted">
                                     <tr>
-                                        <td scope="col">S/N</td>
+                                        <th scope="col">S/N</th>
                                         <th scope="col">Image</th>
                                         <th scope="col">Link</th>
                                         <th scope="col"></th>
@@ -268,11 +268,11 @@
                                             <td>{{ $sponsor->link }}</td>
 
                                             <td style="width:5%;">
-                                                <a href="javascript:void(0);" data-bs-toggle="modal" data-bs-target="#editFeature{{$feature->id}}" style="margin: 5px" class="link-primary"><i class="ri-edit-circle-fill"></i></a>
+                                                <a href="javascript:void(0);" data-bs-toggle="modal" data-bs-target="#editSponsor{{$feature->id}}" style="margin: 5px" class="link-primary"><i class="ri-edit-circle-fill"></i></a>
                                                 <a href="javascript:void(0);" data-bs-toggle="modal" data-bs-target="#deleteSponsor{{$feature->id}}" style="margin: 5px" class="link-danger"><i class="ri-delete-bin-5-line"></i></a>
                                             </td>
                                         </tr>
-                                        <div id="deleteSponsor{{$feature->id}}" class="modal fade" tabindex="-1" aria-hidden="true" style="display: none;">
+                                        <div id="deleteSponsor{{$sponsor->id}}" class="modal fade" tabindex="-1" aria-hidden="true" style="display: none;">
                                             <div class="modal-dialog modal-dialog-centered">
                                                 <div class="modal-content">
                                                     <div class="modal-body text-center p-5">
@@ -298,8 +298,8 @@
                                                 </div><!-- /.modal-content -->
                                             </div><!-- /.modal-dialog -->
                                         </div><!-- /.modal --><!-- end tr -->
-                                        
-                                        <div id="editSponsor{{$feature->id}}" class="modal fade" tabindex="-1" aria-hidden="true" style="display: none;">
+
+                                        <div id="editSponsor{{$sponsor->id}}" class="modal fade" tabindex="-1" aria-hidden="true" style="display: none;">
                                             <div class="modal-dialog modal-dialog-centered modal-lg">
                                                 <div class="modal-content">
                                                     <div class="modal-body p-5">
@@ -319,6 +319,131 @@
                                                                 <div class="mb-3">
                                                                     <label for="image" class="form-label">Image</label>
                                                                     <input type="file" class="form-control" name='image' id="image">
+                                                                </div>
+                                    
+                                                                <hr>
+                                                                <button type="submit" class="btn btn-info w-100">Save changes</button>
+                                                            </form>
+                                                        </div>
+                                                    </div>
+                                                    <div class="modal-footer bg-light p-3 justify-content-center">
+    
+                                                    </div>
+                                                </div><!-- /.modal-content -->
+                                            </div><!-- /.modal-dialog -->
+                                        </div><!-- /.modal --><!-- end tr -->
+                                    @endforeach
+                                @endif
+                                </tbody><!-- end tbody -->
+                            </table><!-- end table -->
+                        </div>
+                            
+                    </div><!-- end cardbody -->
+                </div><!-- end card -->
+            </div><!-- end col -->
+
+            <div class="col-xxl-12 col-lg-6">
+                <div class="card card-height-100">
+                    <div class="card-header align-items-center d-flex">
+                        <h4 class="card-title mb-0 flex-grow-1">Schedules</h4>
+                        <div class="flex-shrink-0">
+                            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addSchedule">Add Schedule</button>
+                        </div>
+                    </div><!-- end card header -->
+
+                    <div class="card-body">
+                        <div class="table-responsive table-card">
+                            <table class="table table-borderless table-nowrap align-middle mb-0">
+                                <thead class="table-light text-muted">
+                                    <tr>
+                                        <th scope="col">S/N</th>
+                                        <th scope="col">Title</th>
+                                        <th scope="col">Day</th>
+                                        <th scope="col">Location</th>
+                                        <th scope="col">Start Time</th>
+                                        <th scope="col">End Time</th>
+                                        <th scope="col">Date</th>
+                                        <th scope="col"></th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                @if(!empty($event->schedule))
+                                    @foreach($event->schedules as $schedule)
+                                        <tr>
+                                            <td>{{ $loop->iteration }}</td>
+                                            <td>{{ $schedule->title }}</td>
+                                            <td>{{ $schedule->day }}</td>
+                                            <td>{{ $schedule->location }}</td>
+                                            <td>{{ $schedule->start_time }}</td>
+                                            <td>{{ $schedule->end_time }}</td>
+                                            <td>{{ $schedule->date }}</td>
+                                            <td style="width:5%;">
+                                                <a href="javascript:void(0);" data-bs-toggle="modal" data-bs-target="#editSchedule{{$feature->id}}" style="margin: 5px" class="link-primary"><i class="ri-edit-circle-fill"></i></a>
+                                                <a href="javascript:void(0);" data-bs-toggle="modal" data-bs-target="#deleteSchedule{{$feature->id}}" style="margin: 5px" class="link-danger"><i class="ri-delete-bin-5-line"></i></a>
+                                            </td>
+                                        </tr>
+                                        <div id="deleteSchedule{{$feature->id}}" class="modal fade" tabindex="-1" aria-hidden="true" style="display: none;">
+                                            <div class="modal-dialog modal-dialog-centered">
+                                                <div class="modal-content">
+                                                    <div class="modal-body text-center p-5">
+                                                        <div class="text-end">
+                                                            <button type="button" class="btn-close text-end" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                        </div>
+                                                        <div class="mt-2">
+                                                            <lord-icon src="https://cdn.lordicon.com/wwneckwc.json" trigger="hover" style="width:150px;height:150px">
+                                                            </lord-icon>
+                                                            <h4 class="mb-3 mt-4">Are you sure you want to delete <br>{{ $feature->title }}?</h4>
+                                                            <form action="{{ url('/deleteSchedule') }}" method="POST">
+                                                                @csrf
+                                                                <input name="schedule_id" type="hidden" value="{{$schedule->id}}">
+    
+                                                                <hr>
+                                                                <button type="submit" class="btn btn-danger w-100">Yes, Delete</button>
+                                                            </form>
+                                                        </div>
+                                                    </div>
+                                                    <div class="modal-footer bg-light p-3 justify-content-center">
+    
+                                                    </div>
+                                                </div><!-- /.modal-content -->
+                                            </div><!-- /.modal-dialog -->
+                                        </div><!-- /.modal --><!-- end tr -->
+
+                                        <div id="editSchedule{{$feature->id}}" class="modal fade" tabindex="-1" aria-hidden="true" style="display: none;">
+                                            <div class="modal-dialog modal-dialog-centered modal-lg">
+                                                <div class="modal-content">
+                                                    <div class="modal-body p-5">
+                                                        <div class="text-end">
+                                                            <button type="button" class="btn-close text-end" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                        </div>
+                                                        <div class="mt-2">
+                                                            <form action="{{ url('/updateSchedule') }}" method="POST">
+                                                                @csrf
+                                                                <input name="schedule_id" type="hidden" value="{{$schedule->id}}">
+                                    
+                                                                <div class="mb-3">
+                                                                    <label for="day" class="form-label">Day</label>
+                                                                    <input type="number" class="form-control" name="day" id="day" value="{{$schedule->id}}">
+                                                                </div>
+                                    
+                                                                <div class="mb-3">
+                                                                    <label for="location" class="form-label">Location</label>
+                                                                    <input type="text" class="form-control" name="location" id="location" value="{{$schedule->location}}">
+                                                                </div>
+                                    
+                                                                <div class="mb-3">
+                                                                    <label for="start_time" class="form-label">Start Time</label>
+                                                                    <input type="time" class="form-control" name="start_time" id="start_time" value="{{$schedule->start_time}}">
+                                                                </div>
+                                    
+                                                                <div class="mb-3">
+                                                                    <label for="end_time" class="form-label">End Time</label>
+                                                                    <input type="time" class="form-control" name="end_time" id="end_time" value="{{$schedule->end_time}}">
+                                                                </div>
+                                    
+                                                                <div class="mb-3">
+                                                                    <label for="date" class="form-label">Date</label>
+                                                                    <input type="date" class="form-control" name="date" id="date" value="{{$schedule->date}}">
                                                                 </div>
                                     
                                                                 <hr>
@@ -502,6 +627,54 @@
                             <hr>
                             <div class="text-end">
                                 <button type="submit" class="btn btn-primary">Add Sponsor</button>
+                            </div>
+                        </form>
+                    </div>
+                </div><!-- /.modal-content -->
+            </div><!-- /.modal-dialog -->
+        </div><!-- /.modal -->
+
+        <div id="addSchedule" class="modal fade" tabindex="-1" aria-hidden="true" style="display: none;">
+            <div class="modal-dialog modal-dialog-centered modal-lg">
+                <div class="modal-content border-0 overflow-hidden">
+                    <div class="modal-header p-3">
+                        <h4 class="card-title mb-0">Add Schedule</h4>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+
+                    <div class="modal-body">
+                        <form action="{{ url('/addSponsor') }}" method="post" enctype="multipart/form-data">
+                            @csrf
+                            <input type="hidden" name="event_id" value="{{ $event->id }}">
+
+                            <div class="mb-3">
+                                <label for="day" class="form-label">Day</label>
+                                <input type="number" class="form-control" name="day" id="day">
+                            </div>
+
+                            <div class="mb-3">
+                                <label for="location" class="form-label">Location</label>
+                                <input type="text" class="form-control" name="location" id="location">
+                            </div>
+
+                            <div class="mb-3">
+                                <label for="start_time" class="form-label">Start Time</label>
+                                <input type="time" class="form-control" name="start_time" id="start_time">
+                            </div>
+
+                            <div class="mb-3">
+                                <label for="end_time" class="form-label">End Time</label>
+                                <input type="time" class="form-control" name="end_time" id="end_time">
+                            </div>
+
+                            <div class="mb-3">
+                                <label for="date" class="form-label">Date</label>
+                                <input type="date" class="form-control" name="date" id="date">
+                            </div>
+
+                            <hr>
+                            <div class="text-end">
+                                <button type="submit" class="btn btn-primary">Add Schedule</button>
                             </div>
                         </form>
                     </div>
