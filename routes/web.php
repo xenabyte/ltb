@@ -13,9 +13,18 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+
+Route::get('/', [App\Http\Controllers\WelcomeController::class, 'index'])->name('welcome');
+Route::get('/about-us', [App\Http\Controllers\WelcomeController::class, 'aboutUs'])->name('aboutUs');
+Route::get('/our-events', [App\Http\Controllers\WelcomeController::class, 'events'])->name('events');
+Route::get('/event-details/{slug}', [App\Http\Controllers\WelcomeController::class, 'singleEvent'])->name('singleEvent');
+Route::get('/contact', [App\Http\Controllers\WelcomeController::class, 'contact'])->name('contact');
+Route::get('/blogs', [App\Http\Controllers\WelcomeController::class, 'blogs'])->name('blogs');
+Route::get('/blog-details/{slug}', [App\Http\Controllers\WelcomeController::class, 'singleBlog'])->name('singleBlog');
+
+
+
+
 
 Auth::routes();
 
