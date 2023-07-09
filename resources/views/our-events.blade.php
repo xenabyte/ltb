@@ -1,9 +1,10 @@
 @include('includes.mainHeader')
-<?php 
+<?php
+if(!empty($sections)){
+$youtubeSection = $sections->where('type', 'youtube')->first();
 $eventSection = $sections->where('type', 'event')->first();
-
+}
 ?>
-
 <!-- Hero Start -->
 <section class="bg-half-170 d-table w-100" style="background: url({{asset($pageGlobalData->setting->banner)}}) top;">
     <div class="bg-overlay"></div>
@@ -12,7 +13,7 @@ $eventSection = $sections->where('type', 'event')->first();
             <div class="col-lg-12 text-center">
                 <div class="pages-heading title-heading">
                     <h2 class="text-white title-dark"> Our Events </h2>
-                    <p class="text-white-50 para-desc mb-0 mx-auto">Start working with Landrick that can provide everything you need to generate awareness, drive traffic, connect.</p>
+                    <p class="text-white-50 para-desc mb-0 mx-auto"></p>
                 </div>
             </div><!--end col-->
         </div><!--end row--> 
@@ -42,8 +43,7 @@ $eventSection = $sections->where('type', 'event')->first();
             <div class="col-md-8">
                 <div class="section-title text-center text-md-start">
                     <h6 class="text-primary">Our Events</h6>
-                    <h4 class="title mb-4">What we do ?</h4>
-                    <p class="text-muted mb-0 para-desc">Bringing Creatives Together</p>
+                    <h4 class="title mb-4">{{ $eventSection->title }}</h4>
                 </div>
             </div><!--end col-->
         </div><!--end row-->
@@ -51,96 +51,58 @@ $eventSection = $sections->where('type', 'event')->first();
         <div class="row">
             <div class="col-md-4 mt-4 pt-2">
                 <ul class="nav nav-pills nav-justified flex-column rounded shadow p-3 mb-0 sticky-bar" id="pills-tab" role="tablist">
+                    @foreach($events as $event)
                     <li class="nav-item">
-                        <a class="nav-link rounded active" id="webdeveloping" data-bs-toggle="pill" href="#developing" role="tab" aria-controls="developing" aria-selected="false">
+                        <a class="nav-link rounded {{$loop->iteration == 1 ?'active':'' }}" id="{{$event->slug.$loop->iteration}}" data-bs-toggle="pill" href="#{{$event->slug}}" role="tab" aria-controls="{{$event->slug}}" aria-selected="false">
                             <div class="text-center py-1">
-                                <h6 class="mb-0">Web Developing</h6>
+                                <h6 class="mb-0">{{ $event->title }}</h6>
                             </div>
                         </a><!--end nav link-->
                     </li><!--end nav item-->
-                    
-                    <li class="nav-item mt-2">
-                        <a class="nav-link rounded" id="database" data-bs-toggle="pill" href="#data-analise" role="tab" aria-controls="data-analise" aria-selected="false">
-                            <div class="text-center py-1">
-                                <h6 class="mb-0">Database Analysis</h6>
-                            </div>
-                        </a><!--end nav link-->
-                    </li><!--end nav item-->
-                    
-                    <li class="nav-item mt-2">
-                        <a class="nav-link rounded" id="server" data-bs-toggle="pill" href="#security" role="tab" aria-controls="security" aria-selected="false">
-                            <div class="text-center py-1">
-                                <h6 class="mb-0">Server Security</h6>
-                            </div>
-                        </a><!--end nav link-->
-                    </li><!--end nav item-->
-                    
-                    <li class="nav-item mt-2">
-                        <a class="nav-link rounded" id="webdesigning" data-bs-toggle="pill" href="#designing" role="tab" aria-controls="designing" aria-selected="false">
-                            <div class="text-center py-1">
-                                <h6 class="mb-0">Web Designing</h6>
-                            </div>
-                        </a><!--end nav link-->
-                    </li><!--end nav item-->
+                    @endforeach
                 </ul><!--end nav pills-->
             </div><!--end col-->
 
             <div class="col-md-8 col-12 mt-4 pt-2">
                 <div class="tab-content" id="pills-tabContent">
-                    <div class="tab-pane fade show active p-4 rounded shadow" id="developing" role="tabpanel" aria-labelledby="webdeveloping">
-                        <img src="landing_assets/images/work/7.jpg" class="img-fluid rounded shadow" alt="">
+                    @foreach($events as $event)
+                    <div class="tab-pane fade show {{$loop->iteration == 1 ?'active':'' }} p-4 rounded shadow" id="{{$event->slug}}" role="tabpanel" aria-labelledby="{{$event->slug}}">
+                        <img src="{{asset($event->image)}}" class="img-fluid rounded shadow" alt="">
                         <div class="mt-4">
-                            <p class="text-muted">This is required when, for example, the final text is not yet available. Dummy text is also known as 'fill text'. It is said that song composers of the past used dummy texts as lyrics.</p>
-                            <a href="javascript:void(0)" class="text-primary">See More <i class="uil uil-angle-right-b align-middle"></i></a>
+                            <p class="text-muted">{{ $event->description }}</p>
+                            <a href="{{ url('/event-details/'.$event->slug)  }}" class="text-primary">See More <i class="uil uil-angle-right-b align-middle"></i></a>
                         </div>
                     </div><!--end teb pane-->
-                    
-                    <div class="tab-pane fade p-4 rounded shadow" id="data-analise" role="tabpanel" aria-labelledby="database">
-                        <img src="landing_assets/images/work/8.jpg" class="img-fluid rounded shadow" alt="">
-                        <div class="mt-4">
-                            <p class="text-muted">This is required when, for example, the final text is not yet available. Dummy text is also known as 'fill text'. It is said that song composers of the past used dummy texts as lyrics.</p>
-                            <a href="javascript:void(0)" class="text-primary">See More <i class="uil uil-angle-right-b align-middle"></i></a>
-                        </div>
-                    </div><!--end teb pane-->
-
-                    <div class="tab-pane fade p-4 rounded shadow" id="security" role="tabpanel" aria-labelledby="server">
-                        <img src="landing_assets/images/work/9.jpg" class="img-fluid rounded shadow" alt="">
-                        <div class="mt-4">
-                            <p class="text-muted">This is required when, for example, the final text is not yet available. Dummy text is also known as 'fill text'. It is said that song composers of the past used dummy texts as lyrics.</p>
-                            <a href="javascript:void(0)" class="text-primary">See More <i class="uil uil-angle-right-b align-middle"></i></a>
-                        </div>
-                    </div><!--end teb pane-->
-                    
-                    <div class="tab-pane fade p-4 rounded shadow" id="designing" role="tabpanel" aria-labelledby="webdesigning">
-                        <img src="landing_assets/images/work/12.jpg" class="img-fluid rounded shadow" alt="">
-                        <div class="mt-4">
-                            <p class="text-muted">This is required when, for example, the final text is not yet available. Dummy text is also known as 'fill text'. It is said that song composers of the past used dummy texts as lyrics.</p>
-                            <a href="javascript:void(0)" class="text-primary">See More <i class="uil uil-angle-right-b align-middle"></i></a>
-                        </div>
-                    </div><!--end teb pane-->
+                    @endforeach
                 </div><!--end tab content-->
             </div><!--end col-->
         </div><!--end row-->
     </div><!--end container-->
 
+    @if(!empty($youtubeSection))
     <div class="container-fluid mt-100 mt-60">
-        <div class="bg-cta shadow rounded card overflow-hidden" style="background: url('landing_assets/images/2.jpg') center center;" id="cta">
+        <div class="bg-cta shadow rounded card overflow-hidden" style="background: url({{asset($youtubeSection->image)}}) center center;" id="cta">
             <div class="bg-overlay"></div>
             <div class="container">
                 <div class="row justify-content-center">
                     <div class="col-12 text-center">
                         <div class="section-title">
-                            <h4 class="title title-dark text-white mb-4">We Are Creative Dreamers and Innovators</h4>
-                            <p class="text-white-50 para-dark para-desc mx-auto">Start working with Landrick that can provide everything you need to generate awareness, drive traffic, connect.</p>
-                            <a href="#!" data-type="youtube" data-id="yba7hPeTSjk" class="play-btn  mt-4 lightbox">
+                            <br>
+                            <h4 class="title title-dark text-white mb-4">{{$youtubeSection->title}}</h4>
+                            <p class="text-white-50 para-dark para-desc mx-auto">{!! $youtubeSection->description !!}</p>
+                            <br>
+                            @if(!empty($youtubeSection->link))
+                            <a href="{{$youtubeSection->link}}" data-type="youtube" data-id="yba7hPeTSjk" class="play-btn  mt-4 lightbox">
                                 <i data-feather="play" class="fea icon-ex-md text-white title-dark"></i>
                             </a>
+                            @endif
                         </div>
                     </div><!--end col-->
                 </div><!--end row-->
             </div><!--end container-->
         </div>
     </div><!--end container-->
+    @endif
 </section><!--end section-->
 <!-- End -->
 

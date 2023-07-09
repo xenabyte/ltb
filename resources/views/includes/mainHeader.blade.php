@@ -1,11 +1,4 @@
-<?php
-if(!empty($sections)){
-$aboutSection = $sections->where('type', 'about')->first();
-$youtubeSection = $sections->where('type', 'youtube')->first();
-$teamSection = $sections->where('type', 'team')->first();
 
-}
-?>
 <!doctype html>
 <html lang="en" dir="ltr">
 

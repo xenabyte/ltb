@@ -71,10 +71,12 @@ class WelcomeController extends Controller
      */
     public function events()
     {
-        $sections = Section::where('position', 'event')->get();
+        $sections = Section::get(); //where('position', 'event')->get();
+        $events = Event::all();
 
         return view('our-events', [
             'sections' => $sections,
+            'events' => $events,
         ]);
     }
 

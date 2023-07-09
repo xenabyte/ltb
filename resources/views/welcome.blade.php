@@ -1,5 +1,11 @@
 @include('includes.mainHeader')
-
+<?php
+if(!empty($sections)){
+$aboutSection = $sections->where('type', 'about')->first();
+$youtubeSection = $sections->where('type', 'youtube')->first();
+$teamSection = $sections->where('type', 'team')->first();
+}
+?>
 <section class="swiper-slider-hero position-relative d-block vh-100" id="home">
     <div class="swiper-container">
         <div class="swiper-wrapper">

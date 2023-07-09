@@ -1,4 +1,10 @@
 @include('includes.mainHeader')
+<?php
+if(!empty($sections)){
+$aboutSection = $sections->where('type', 'about')->first();
+$youtubeSection = $sections->where('type', 'youtube')->first();
+}
+?>
 
 <!-- Hero Start -->
 <section class="bg-half-170 d-table w-100" style="background: url({{asset($pageGlobalData->setting->banner)}}) top;">
