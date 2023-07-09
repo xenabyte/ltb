@@ -41,7 +41,13 @@ class WelcomeController extends Controller
      */
     public function index()
     {
-        return view('welcome');
+        $sliders = Slider::get();
+        $sections = Section::get();
+
+        return view('welcome', [
+            'sliders' => $sliders,
+            'sections' => $sections,
+        ]);
     }
 
     /**

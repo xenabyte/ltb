@@ -1,20 +1,29 @@
 @include('includes.mainHeader')
+<?php 
+$aboutSection = $sections->where('type', 'about')->first();
+$teamSection = $sections->where('type', 'team')->first();
+$eventSection = $sections->where('type', 'event')->first();
+
+?>
 
 <section class="swiper-slider-hero position-relative d-block vh-100" id="home">
     <div class="swiper-container">
         <div class="swiper-wrapper">
+            @foreach($sliders as $slider)
             <div class="swiper-slide d-flex align-items-center overflow-hidden">
-                <div class="slide-inner slide-bg-image d-flex align-items-center" style="background: center center;" data-background="{{asset('landing_assets/images/1.jpg')}}">
+                <div class="slide-inner slide-bg-image d-flex align-items-center" style="background: center center;" data-background="{{asset($slider->image)}}">
                     <div class="bg-overlay"></div>
                     <div class="container">
                         <div class="row justify-content-center">
                             <div class="col-12">
                                 <div class="title-heading text-center">
-                                    <h1 class="display-5 text-white title-dark fw-bold mb-4">Discover the world of <br> business</h1>
-                                    <p class="para-desc mx-auto text-white-50">Launch your campaign and benefit from our expertise on designing and managing conversion centered bootstrap v5 html page.</p>
+                                    <h1 class="display-5 text-white title-dark fw-bold mb-4">{{ $slider->title }}</h1>
+                                    <p class="para-desc mx-auto text-white-50">{{ strip_tags($slider->description) }}</p>
                                     
                                     <div class="mt-4 pt-2">
-                                        <a href="javascript:void(0)" class="btn btn-primary">Contact us</a>
+                                        <a href="{{ $slider->button_link }}" class="btn btn-primary">
+                                            {{ $slider->button_text }}
+                                        </a>
                                     </div>
                                 </div>
                             </div><!--end col-->
@@ -22,29 +31,9 @@
                     </div><!--end container-->
                 </div><!-- end slide-inner --> 
             </div> <!-- end swiper-slide -->
-
-            <div class="swiper-slide d-flex align-items-center overflow-hidden">
-                <div class="slide-inner slide-bg-image d-flex align-items-center" style="background: center center;" data-background="landing_assets/images/2.jpg">
-                    <div class="bg-overlay"></div>
-                    <div class="container">
-                        <div class="row justify-content-center">
-                            <div class="col-12">
-                                <div class="title-heading text-center">
-                                    <h1 class="display-5 text-white title-dark fw-bold mb-4">Meet our brand <br> new solution</h1>
-                                    <p class="para-desc mx-auto text-white-50">Launch your campaign and benefit from our expertise on designing and managing conversion centered bootstrap v5 html page.</p>
-                                    
-                                    <div class="mt-4 pt-2">
-                                        <a href="javascript:void(0)" class="btn btn-primary">Get Started</a>
-                                    </div>
-                                </div>
-                            </div><!--end col-->
-                        </div><!--end row-->
-                    </div><!--end container-->
-                </div><!-- end slide-inner --> 
-            </div> <!-- end swiper-slide -->
+            @endforeach
         </div>
         <!-- end swiper-wrapper -->
-
         <!-- swipper controls -->
         <!-- <div class="swiper-pagination"></div> -->
         <div class="swiper-button-next rounded-circle text-center"></div>
@@ -53,6 +42,7 @@
 </section><!--end section-->
 <!-- Hero End -->
 
+@if(!empty($aboutSection))
 <!-- FEATURES START -->
 <section class="section bg-light">
 
@@ -60,33 +50,30 @@
         <div class="row align-items-center">
             <div class="col-lg-5 col-md-5 mt-4 pt-2 mt-sm-0 pt-sm-0">
                 <div class="position-relative">
-                    <img src="landing_assets/images/company/about2.png" class="img-fluid mx-auto" alt="">
-                    <div class="play-icon">
-                        <a href="#!" data-type="youtube" data-id="yba7hPeTSjk" class="play-btn lightbox border-0">
-                            <i class="mdi mdi-play text-primary rounded-circle shadow"></i>
-                        </a>
-                    </div>
+                    <img src="{{asset($aboutSection->image)}}" class="img-fluid mx-auto" alt="">
                 </div>
             </div><!--end col-->
 
             <div class="col-lg-7 col-md-7 mt-4 pt-2 mt-sm-0 pt-sm-0">
                 <div class="section-title ms-lg-4">
-                    <h4 class="title mb-4">We are the largest <br> Business expert </h4>
-                    <p class="text-muted">Start working with <span class="text-primary fw-bold">Landrick</span> that can provide everything you need to generate awareness, drive traffic, connect. Dummy text is text that is used in the publishing industry or by web designers to occupy the space which will later be filled with 'real' content. This is required when, for example, the final text is not yet available. Dummy texts have been in use by typesetters since the 16th century.</p>
-                    <a href="javascript:void(0)" class="btn btn-primary mt-3">Buy Now <i class="mdi mdi-chevron-right align-middle"></i></a>
+                    <h4 class="title mb-4">{{ $aboutSection->title }}</h4>
+                    <p class="text-muted">{!! $aboutSection->description !!}</p>
+                    <a href="{{ url('about-us') }}" class="btn btn-primary mt-3">Read More <i class="mdi mdi-chevron-right align-middle"></i></a>
                 </div>
             </div><!--end col-->
         </div><!--end row-->
     </div><!--end container-->
 </section><!--end section-->
+@endif
 
+@if(!empty($teamSection))
 <section class="section">
     <div class="container">
         <div class="row justify-content-center">
             <div class="col-12 text-center">
                 <div class="section-title mb-4 pb-2">
-                    <h4 class="title mb-4">Key Features</h4>
-                    <p class="text-muted para-desc mx-auto mb-0">Start working with <span class="text-primary fw-bold">Landrick</span> that can provide everything you need to generate awareness, drive traffic, connect.</p>
+                    <h4 class="title mb-4">{{ $teamSection->title }}</h4>
+                    <p class="text-muted para-desc mx-auto mb-0"></p>
                 </div>
             </div><!--end col-->
         </div><!--end row-->
@@ -100,12 +87,14 @@
             <div class="col-12 text-center">
                 <div class="video-solution-cta position-relative" style="z-index: 1;">
                     <div class="position-relative">
-                        <img src="landing_assets/images/cta-bg.jpg" class="img-fluid rounded-md shadow-lg" alt="">
+                        <img src="{{asset($teamSection->image)}}" class="img-fluid rounded-md shadow-lg" alt="">
+                        @if(!empty($teamSection->link))
                         <div class="play-icon">
-                            <a href="#!" data-type="youtube" data-id="yba7hPeTSjk" class="play-btn lightbox border-0">
+                            <a href="{{ $teamSection->link }}" data-type="youtube" data-id="yba7hPeTSjk" class="play-btn lightbox border-0">
                                 <i class="mdi mdi-play text-primary rounded-circle shadow-lg"></i>
                             </a>
                         </div>
+                        @endif
                     </div>
                     <div class="content mt-md-4 pt-md-2">
                         <div class="row justify-content-center">
@@ -120,8 +109,7 @@
 
                                     <div class="col-md-6 col-12 mt-4 pt-md-2">
                                         <div class="section-title text-md-start">
-                                            <p class="text-white-50 para-desc">Start working with Landrick that can provide everything you need to generate awareness, drive traffic, connect.</p>
-                                            <a href="javascript:void(0)" class="text-white title-dark">Read More <i data-feather="arrow-right" class="fea icon-sm"></i></a>
+                                            <p class="text-white-50 para-desc">{!! $teamSection->description !!}</p>
                                         </div>
                                     </div>
                                 </div>
@@ -135,27 +123,35 @@
     </div><!--end container-->
 </section><!--end section-->
 <!-- End -->
+@endif
 
+@if(!empty($eventSection))
 <div class="container-fluid mt-100 mt-60">
-    <div class="bg-cta shadow rounded card overflow-hidden" style="background: url('assets/images/2.jpg') center center;" id="cta">
+    <div class="bg-cta shadow rounded card overflow-hidden" style="background: url({{asset($eventSection->image)}}) center center;" id="cta">
         <div class="bg-overlay"></div>
         <div class="container">
             <div class="row justify-content-center">
                 <div class="col-12 text-center">
                     <div class="section-title">
-                        <h4 class="title title-dark text-white mb-4">We Are Creative Dreamers and Innovators</h4>
-                        <p class="text-white-50 para-dark para-desc mx-auto">Start working with Landrick that can provide everything you need to generate awareness, drive traffic, connect.</p>
-                        <a href="#!" data-type="youtube" data-id="yba7hPeTSjk" class="play-btn  mt-4 lightbox">
+                        <br>
+                        <h4 class="title title-dark text-white mb-4">{{$eventSection->title}}</h4>
+                        <p class="text-white-50 para-dark para-desc mx-auto">{!! $eventSection->description !!}</p>
+                        <br>
+                        @if(!empty($eventSection->link))
+                        <a href="{{$eventSection->link}}" data-type="youtube" data-id="yba7hPeTSjk" class="play-btn  mt-4 lightbox">
                             <i data-feather="play" class="fea icon-ex-md text-white title-dark"></i>
                         </a>
+                        @endif
                     </div>
                 </div><!--end col-->
             </div><!--end row-->
         </div><!--end container-->
     </div>
 </div><!--end container-->
+@endif
 
 <section class="section">
+    @if(!empty($testimonialSection))
     <div class="container mt-100 mt-60">
         <div class="row justify-content-center">
             <div class="col-12 text-center">
@@ -275,6 +271,7 @@
             </div><!--end col-->
         </div><!--end row-->
     </div><!--end container-->
+    @endif
 
     <div class="container mt-100 mt-60">
         <div class="row align-items-center mb-4 pb-2">

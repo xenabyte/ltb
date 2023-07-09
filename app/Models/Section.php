@@ -18,6 +18,7 @@ class Section extends Model
      * @var array<int, string>
      */
     protected $fillable = [
+        'title',
         'type', 
         'description', 
         'image', 
