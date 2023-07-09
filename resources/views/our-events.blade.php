@@ -1,4 +1,8 @@
 @include('includes.mainHeader')
+<?php 
+$eventSection = $sections->where('type', 'event')->first();
+
+?>
 
 <!-- Hero Start -->
 <section class="bg-half-170 d-table w-100" style="background: url({{asset($pageGlobalData->setting->banner)}}) top;">

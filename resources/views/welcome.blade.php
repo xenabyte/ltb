@@ -1,10 +1,4 @@
 @include('includes.mainHeader')
-<?php 
-$aboutSection = $sections->where('type', 'about')->first();
-$teamSection = $sections->where('type', 'team')->first();
-$eventSection = $sections->where('type', 'event')->first();
-
-?>
 
 <section class="swiper-slider-hero position-relative d-block vh-100" id="home">
     <div class="swiper-container">
@@ -57,7 +51,7 @@ $eventSection = $sections->where('type', 'event')->first();
             <div class="col-lg-7 col-md-7 mt-4 pt-2 mt-sm-0 pt-sm-0">
                 <div class="section-title ms-lg-4">
                     <h4 class="title mb-4">{{ $aboutSection->title }}</h4>
-                    <p class="text-muted">{!! $aboutSection->description !!}</p>
+                    <p class="text-muted">{!! Illuminate\Support\Str::limit($aboutSection->description, 500) !!}</p>
                     <a href="{{ url('about-us') }}" class="btn btn-primary mt-3">Read More <i class="mdi mdi-chevron-right align-middle"></i></a>
                 </div>
             </div><!--end col-->
@@ -125,20 +119,20 @@ $eventSection = $sections->where('type', 'event')->first();
 <!-- End -->
 @endif
 
-@if(!empty($eventSection))
+@if(!empty($youtubeSection))
 <div class="container-fluid mt-100 mt-60">
-    <div class="bg-cta shadow rounded card overflow-hidden" style="background: url({{asset($eventSection->image)}}) center center;" id="cta">
+    <div class="bg-cta shadow rounded card overflow-hidden" style="background: url({{asset($youtubeSection->image)}}) center center;" id="cta">
         <div class="bg-overlay"></div>
         <div class="container">
             <div class="row justify-content-center">
                 <div class="col-12 text-center">
                     <div class="section-title">
                         <br>
-                        <h4 class="title title-dark text-white mb-4">{{$eventSection->title}}</h4>
-                        <p class="text-white-50 para-dark para-desc mx-auto">{!! $eventSection->description !!}</p>
+                        <h4 class="title title-dark text-white mb-4">{{$youtubeSection->title}}</h4>
+                        <p class="text-white-50 para-dark para-desc mx-auto">{!! $youtubeSection->description !!}</p>
                         <br>
-                        @if(!empty($eventSection->link))
-                        <a href="{{$eventSection->link}}" data-type="youtube" data-id="yba7hPeTSjk" class="play-btn  mt-4 lightbox">
+                        @if(!empty($youtubeSection->link))
+                        <a href="{{$youtubeSection->link}}" data-type="youtube" data-id="yba7hPeTSjk" class="play-btn  mt-4 lightbox">
                             <i data-feather="play" class="fea icon-ex-md text-white title-dark"></i>
                         </a>
                         @endif

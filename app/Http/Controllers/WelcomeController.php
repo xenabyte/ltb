@@ -42,7 +42,7 @@ class WelcomeController extends Controller
     public function index()
     {
         $sliders = Slider::get();
-        $sections = Section::get();
+        $sections = Section::where('position', 'homepage')->get();
 
         return view('welcome', [
             'sliders' => $sliders,
@@ -57,7 +57,11 @@ class WelcomeController extends Controller
      */
     public function aboutUs()
     {
-        return view('about-us');
+        $sections = Section::where('position', 'about')->get();
+
+        return view('about-us', [
+            'sections' => $sections,
+        ]);
     }
 
     /**
@@ -67,7 +71,11 @@ class WelcomeController extends Controller
      */
     public function events()
     {
-        return view('our-events');
+        $sections = Section::where('position', 'event')->get();
+
+        return view('our-events', [
+            'sections' => $sections,
+        ]);
     }
 
 

@@ -414,6 +414,7 @@ class HomeController extends Controller
             'description' => 'required',
             'image' => 'nullable',
             'type' => 'required',
+            'location' => 'required',
         ]);
 
         if($validator->fails()) {
@@ -433,7 +434,8 @@ class HomeController extends Controller
             'type' => $request->type,
             'image' => $imageUrl,
             'description' => $request->description,
-            'link' => $request->link
+            'link' => $request->link,
+            'position' => $request->position
         ]);
 
         if(Section::create($addItem)){
@@ -471,6 +473,10 @@ class HomeController extends Controller
 
         if(!empty($request->link) &&  $request->link != $section->link){
             $section->link = $request->link;
+        }
+
+        if(!empty($request->position) &&  $request->position != $section->position){
+            $section->position = $request->position;
         }
 
         if(!empty($request->image)){

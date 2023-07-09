@@ -304,12 +304,15 @@
                                                 <li class="nav-item">
                                                     <a href="{{('sliders')}}" class="nav-link"> Slider Section</a>
                                                 </li>
-                                                <li class="nav-item">
-                                                    <a href="{{('sections')}}" class="nav-link">Other Sections </a>
-                                                </li>
                                             </ul>
                                         </div>
                                     </li> <!-- end landing page menu -->
+                                    <li class="nav-item">
+                                        <a href="{{('sections')}}" class="nav-link">Page Sections </a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a href="{{('blogs')}}" class="nav-link">Blogs </a>
+                                    </li>
                                 </ul>
                             </div>
                         </li> <!-- end Pages Menu -->

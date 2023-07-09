@@ -23,6 +23,7 @@ class Section extends Model
         'description', 
         'image', 
         'type',
-        'link', 
+        'link',
+        'position'
     ];
 }

@@ -46,6 +46,7 @@
                                             <th scope="col">Description</th>
                                             <th scope="col">Image</th>
                                             <th scope="col">Type</th>
+                                            <th scope="col">Location(Page)</th>
                                             <th scope="col">Link</th>
                                             <th scope="col"></th>
                                         </tr>
@@ -58,6 +59,7 @@
                                             <td>{!! $section->description !!}</td>
                                             <td><img class="rounded shadow" alt="{{ $section->image }}" width="30%" src="{{ asset($section->image) }}"></td>
                                             <td>{{ $section->type }}</td>
+                                            <td>{{ $section->position }}</td>
                                             <td>{{ $section->link }}</td>
                                             <td>{{ date('F jS, Y \a\t g:i A', strtotime($section->created_at)) }}</td>
                                             <td>
@@ -128,6 +130,17 @@
                                                                                 <option value="youtube">Youtube</option>
                                                                             </select>
                                                                         </div>
+
+                                                                        <div class="mb-3">
+                                                                            <label for="section" class="form-label">Location</label>
+                                                                            <select class="form-select" aria-label="position" name="position">
+                                                                                <option selected value= "">Select Location</option>
+                                                                                <option value="homepage">Homepage</option>
+                                                                                <option value="about">About-us Page</option>
+                                                                                <option value="team">Teams Page</option>
+                                                                                <option value="event">Programme Page</option>
+                                                                            </select>
+                                                                        </div>
                                                                         
                                                                         <div class="mb-3">
                                                                             <label for="link" class="form-label">Youtube Link</label>
@@ -196,6 +209,17 @@
                                     <option value="blog">Blog</option>
                                     <option value="sponsor">Sponsor</option>
                                     <option value="youtube">Youtube</option>
+                                </select>
+                            </div>
+
+                            <div class="mb-3">
+                                <label for="section" class="form-label">Location</label>
+                                <select class="form-select" aria-label="position" name="position">
+                                    <option selected value= "">Select Location</option>
+                                    <option value="homepage">Homepage</option>
+                                    <option value="about">About-us Page</option>
+                                    <option value="team">Teams Page</option>
+                                    <option value="event">Programme Page</option>
                                 </select>
                             </div>
 
