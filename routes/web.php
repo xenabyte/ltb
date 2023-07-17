@@ -61,3 +61,15 @@ Route::post('/deleteFeature', [App\Http\Controllers\HomeController::class, 'dele
 Route::post('/addSponsor', [App\Http\Controllers\HomeController::class, 'addSponsor'])->name('addSponsor');
 Route::post('/updateSponsor', [App\Http\Controllers\HomeController::class, 'updateSponsor'])->name('updateSponsor');
 Route::post('/deleteSponsor', [App\Http\Controllers\HomeController::class, 'deleteSponsor'])->name('deleteSponsor');
+
+Route::post('/addSchedule', [App\Http\Controllers\HomeController::class, 'addSchedule'])->name('addSchedule');
+Route::post('/updateSchedule', [App\Http\Controllers\HomeController::class, 'updateSchedule'])->name('updateSchedule');
+Route::post('/deleteSchedule', [App\Http\Controllers\HomeController::class, 'deleteSchedule'])->name('deleteSchedule');
+
+
+Route::get('/news', [App\Http\Controllers\HomeController::class, 'news'])->name('news');
+  Route::post('/addNews', [App\Http\Controllers\HomeController::class, 'addNews'])->name('addNews');
+  Route::post('/updateNews', [App\Http\Controllers\HomeController::class, 'updateNews'])->name('updateNews');
+  Route::post('/deleteNews', [App\Http\Controllers\HomeController::class, 'deleteNews'])->name('deleteNews');
+
+  Route::post('/managePost', [App\Http\Controllers\HomeController::class, 'managePost'])->name('managePost');

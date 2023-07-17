@@ -11,7 +11,6 @@ class Schedule extends Model
 {
     use HasFactory, SoftDeletes;
 
-
     /**
      * The attributes that are mass assignable.
      *

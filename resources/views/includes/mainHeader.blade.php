@@ -83,7 +83,7 @@
                         <li><a href="{{url('about-us')}}" class="sub-menu-item"> About Us</a></li>
                         <li><a href="{{url('our-events')}}" class="sub-menu-item">Programmes</a></li>
                         <li><a href="{{url('blogs')}}" class="sub-menu-item">News</a></li>
-                        <li><a href="{{url('contact-us')}}" class="sub-menu-item">Contact Us</a></li>
+                        <li><a href="{{url('contact')}}" class="sub-menu-item">Contact Us</a></li>
                     </ul><!--end navigation menu-->
                 </div><!--end navigation-->
             </div><!--end container-->

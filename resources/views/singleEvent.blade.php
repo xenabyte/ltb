@@ -1,15 +1,19 @@
 @include('includes.mainHeader')
+<?php 
+$speakers = $event->features->where('type','Speaker');
+$team = $event->features->where('type','Team');
+?>
 
 <!-- Hero Start -->
-<section class="bg-half-260 w-100 d-table jarallax" data-jarallax data-speed="0.5" style="background: url('{{asset('landing_assets/images/event/event.jpg')}}') center center;">
+<section class="bg-half-260 w-100 d-table jarallax" data-jarallax data-speed="0.5" style="background: url('{{asset($event->image)}}') center center;">
     <div class="bg-overlay bg-primary bg-gradient" style="opacity: 0.85;"></div>
     <div class="container">
         <div class="row justify-content-center">
             <div class="col-lg-10 text-center">
                 <div class="title-heading">
-                    <h4 class="text-success mb-3">11th October, 2021</h4>
-                    <h1 class="display-4 title-dark text-white fw-bold mb-3">Digital Conference 2021-21</h1>
-                    <p class="para-desc title-dark mx-auto text-white-50">Launch your campaign and benefit from our expertise on designing and managing conversion centered bootstrap v5 html page.</p>
+                    <h4 class="text-success mb-3">{{ date('F j, Y', strtotime($event->date)) }}</h4>
+                    <h1 class="display-4 title-dark text-white fw-bold mb-3">{{ $event->title }}</h1>
+                    <p class="para-desc title-dark mx-auto text-white-50">{{ strip_tags($event->description)}}</p>
                     
                     <div class="row">
                         <div class="col-md-12 text-center">
@@ -25,7 +29,7 @@
                         </div>
                     </div>
 
-                    <a href="javascript:void(0)" class="btn btn-success mt-2 me-2"><i class="uil uil-ticket"></i> Buy Tickets</a>
+                    <a href="#schedules" class="btn btn-success mt-2 me-2"> Event Schedules</a>
                 </div>
             </div><!--end col-->
         </div><!--end row-->
@@ -34,7 +38,7 @@
 <div class="position-relative">
     <div class="shape overflow-hidden">
         <div class="text-center p-4">
-            <h5 class="mb-0 text-white title-dark">Next Event : 15th March, 2023</h5>
+            <h5 class="mb-0 text-white title-dark">To be communicated</h5>
         </div>
     </div>
 </div>
@@ -46,12 +50,12 @@
         <div class="card rounded shadow border-0 bg-light overflow-hidden">
             <div class="row g-0 align-items-center">
                 <div class="col-lg-6">
-                    <img src="{{asset('landing_assets/images/event/about.jpg')}}" class="img-fluid" alt="">
+                    <img src="{{asset($event->image)}}" class="img-fluid" alt="">
                 </div><!--end col-->
                 <div class="col-lg-6">
                     <div class="card-body section-title p-md-5">
-                        <h4 class="title mb-4">Business Startup Conference</h4>
-                        <p class="text-muted para-desc mb-0">Start working with Landrick that can provide everything you need to generate awareness, drive traffic, connect. Launch your campaign and benefit from our expertise on designing and managing conversion centered bootstrap v5 html page managing conversion centered bootstrap v5 html page.</p>
+                        <h4 class="title mb-4">{{$event->title}}</h4>
+                        <p class="text-muted para-desc mb-0">{!! $event->about !!}</p>
                         
                     </div>
                 </div><!--end col-->
@@ -78,91 +82,66 @@
             <div class="col-12 text-center">
                 <div class="section-title mb-4 pb-2">
                     <h4 class="title mb-4">Our Speakers</h4>
-                    <p class="text-muted para-desc mx-auto mb-0">Start working with <span class="text-primary fw-bold">Landrick</span> that can provide everything you need to generate awareness, drive traffic, connect.</p>
+                    <p class="text-muted para-desc mx-auto mb-0">{{ $event->title }}'s Exceptional Speaker</p>
                 </div>
             </div><!--end col-->
         </div><!--end row-->
 
         <div class="row">
+            @foreach($speakers as $speaker)
             <div class="col-lg-3 col-md-6 mt-4 pt-2">
                 <div class="card team team-primary text-center rounded border-0">
                     <div class="card-body">
                         <div class="position-relative">
-                            <img src="landing_assets/images/client/01.jpg" class="img-fluid avatar avatar-ex-large rounded-circle shadow" alt="">
+                            <img src="{{ asset($speaker->image) }}" class="img-fluid avatar avatar-ex-large rounded-circle shadow" alt="">
                             <ul class="list-unstyled mb-0 team-icon">
-                                <li class="list-inline-item"><a href="javascript:void(0)" class="btn btn-primary btn-pills btn-sm btn-icon"><i data-feather="facebook" class="icons"></i></a></li>
-                                <li class="list-inline-item"><a href="javascript:void(0)" class="btn btn-primary btn-pills btn-sm btn-icon"><i data-feather="instagram" class="icons"></i></a></li>
-                                <li class="list-inline-item"><a href="javascript:void(0)" class="btn btn-primary btn-pills btn-sm btn-icon"><i data-feather="twitter" class="icons"></i></a></li>
-                                <li class="list-inline-item"><a href="javascript:void(0)" class="btn btn-primary btn-pills btn-sm btn-icon"><i data-feather="linkedin" class="icons"></i></a></li>
+                                <li class="list-inline-item"><a href="{{ $speaker->facebook }}" class="btn btn-primary btn-pills btn-sm btn-icon"><i data-feather="facebook" class="icons"></i></a></li>
+                                <li class="list-inline-item"><a href="{{ $speaker->instagram }}" class="btn btn-primary btn-pills btn-sm btn-icon"><i data-feather="instagram" class="icons"></i></a></li>
+                                <li class="list-inline-item"><a href="{{ $speaker->linkedin }}" class="btn btn-primary btn-pills btn-sm btn-icon"><i data-feather="linkedin" class="icons"></i></a></li>
                             </ul><!--end icon-->
                         </div>
                         <div class="content pt-3">
-                            <h5 class="mb-0"><a href="javascript:void(0)" class="name text-dark">Ronny Jofra</a></h5>
-                            <small class="designation text-muted">Organizer</small>
+                            <h5 class="mb-0"><a href="{{ $speaker->linkedin }}" class="name text-dark">{{$speaker->name}}</a></h5>
+                            <small class="designation text-muted">{{ $speaker->position }}</small>
                         </div>
                     </div>
                 </div>
             </div><!--end col-->
+            @endforeach
+        </div><!--end row-->
+    </div><!--end container-->
 
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-12 text-center">
+                <div class="section-title mb-4 pb-2">
+                    <h4 class="title mb-4">Our Organizers</h4>
+                    <p class="text-muted para-desc mx-auto mb-0">{{ $event->title }}'s Excellent Organizing Team</p>
+                </div>
+            </div><!--end col-->
+        </div><!--end row-->
+
+        <div class="row">
+            @foreach($team as $organizer)
             <div class="col-lg-3 col-md-6 mt-4 pt-2">
                 <div class="card team team-primary text-center rounded border-0">
                     <div class="card-body">
                         <div class="position-relative">
-                            <img src="landing_assets/images/client/04.jpg" class="img-fluid avatar avatar-ex-large rounded-circle shadow" alt="">
+                            <img src="{{ asset($organizer->image) }}" class="img-fluid avatar avatar-ex-large rounded-circle shadow" alt="">
                             <ul class="list-unstyled mb-0 team-icon">
-                                <li class="list-inline-item"><a href="javascript:void(0)" class="btn btn-primary btn-pills btn-sm btn-icon"><i data-feather="facebook" class="icons"></i></a></li>
-                                <li class="list-inline-item"><a href="javascript:void(0)" class="btn btn-primary btn-pills btn-sm btn-icon"><i data-feather="instagram" class="icons"></i></a></li>
-                                <li class="list-inline-item"><a href="javascript:void(0)" class="btn btn-primary btn-pills btn-sm btn-icon"><i data-feather="twitter" class="icons"></i></a></li>
-                                <li class="list-inline-item"><a href="javascript:void(0)" class="btn btn-primary btn-pills btn-sm btn-icon"><i data-feather="linkedin" class="icons"></i></a></li>
+                                <li class="list-inline-item"><a href="{{ $organizer->facebook }}" class="btn btn-primary btn-pills btn-sm btn-icon"><i data-feather="facebook" class="icons"></i></a></li>
+                                <li class="list-inline-item"><a href="{{ $organizer->instagram }}" class="btn btn-primary btn-pills btn-sm btn-icon"><i data-feather="instagram" class="icons"></i></a></li>
+                                <li class="list-inline-item"><a href="{{ $organizer->linkedin }}" class="btn btn-primary btn-pills btn-sm btn-icon"><i data-feather="linkedin" class="icons"></i></a></li>
                             </ul><!--end icon-->
                         </div>
                         <div class="content pt-3">
-                            <h5 class="mb-0"><a href="javascript:void(0)" class="name text-dark">Micheal Carlo</a></h5>
-                            <small class="designation text-muted">Event Manager</small>
+                            <h5 class="mb-0"><a href="{{ $organizer->linkedin }}" class="name text-dark">{{$organizer->name}}</a></h5>
+                            <small class="designation text-muted">{{ $organizer->position }}</small>
                         </div>
                     </div>
                 </div>
             </div><!--end col-->
-            
-            <div class="col-lg-3 col-md-6 mt-4 pt-2">
-                <div class="card team team-primary text-center rounded border-0">
-                    <div class="card-body">
-                        <div class="position-relative">
-                            <img src="landing_assets/images/client/03.jpg" class="img-fluid avatar avatar-ex-large rounded-circle shadow" alt="">
-                            <ul class="list-unstyled mb-0 team-icon">
-                                <li class="list-inline-item"><a href="javascript:void(0)" class="btn btn-primary btn-pills btn-sm btn-icon"><i data-feather="facebook" class="icons"></i></a></li>
-                                <li class="list-inline-item"><a href="javascript:void(0)" class="btn btn-primary btn-pills btn-sm btn-icon"><i data-feather="instagram" class="icons"></i></a></li>
-                                <li class="list-inline-item"><a href="javascript:void(0)" class="btn btn-primary btn-pills btn-sm btn-icon"><i data-feather="twitter" class="icons"></i></a></li>
-                                <li class="list-inline-item"><a href="javascript:void(0)" class="btn btn-primary btn-pills btn-sm btn-icon"><i data-feather="linkedin" class="icons"></i></a></li>
-                            </ul><!--end icon-->
-                        </div>
-                        <div class="content pt-3">
-                            <h5 class="mb-0"><a href="javascript:void(0)" class="name text-dark">Aliana Rosy</a></h5>
-                            <small class="designation text-muted">Motivator</small>
-                        </div>
-                    </div>
-                </div>
-            </div><!--end col-->
-            
-            <div class="col-lg-3 col-md-6 mt-4 pt-2">
-                <div class="card team team-primary text-center rounded border-0">
-                    <div class="card-body">
-                        <div class="position-relative">
-                            <img src="landing_assets/images/client/02.jpg" class="img-fluid avatar avatar-ex-large rounded-circle shadow" alt="">
-                            <ul class="list-unstyled mb-0 team-icon">
-                                <li class="list-inline-item"><a href="javascript:void(0)" class="btn btn-primary btn-pills btn-sm btn-icon"><i data-feather="facebook" class="icons"></i></a></li>
-                                <li class="list-inline-item"><a href="javascript:void(0)" class="btn btn-primary btn-pills btn-sm btn-icon"><i data-feather="instagram" class="icons"></i></a></li>
-                                <li class="list-inline-item"><a href="javascript:void(0)" class="btn btn-primary btn-pills btn-sm btn-icon"><i data-feather="twitter" class="icons"></i></a></li>
-                                <li class="list-inline-item"><a href="javascript:void(0)" class="btn btn-primary btn-pills btn-sm btn-icon"><i data-feather="linkedin" class="icons"></i></a></li>
-                            </ul><!--end icon-->
-                        </div>
-                        <div class="content pt-3">
-                            <h5 class="mb-0"><a href="javascript:void(0)" class="name text-dark">Sofia Razaq</a></h5>
-                            <small class="designation text-muted">Speaker</small>
-                        </div>
-                    </div>
-                </div>
-            </div><!--end col-->
+            @endforeach
         </div><!--end row-->
     </div><!--end container-->
 
@@ -171,35 +150,17 @@
             <div class="col-12 text-center">
                 <div class="section-title mb-4 pb-2">
                     <h4 class="title mb-4">Event Sponsors</h4>
-                    <p class="text-muted para-desc mx-auto mb-0">Start working with <span class="text-primary fw-bold">Landrick</span> that can provide everything you need to generate awareness, drive traffic, connect.</p>
+                    <p class="text-muted para-desc mx-auto mb-0">{{ $event->title }}'s Esteemed Sponsors</p>
                 </div>
             </div><!--end col-->
         </div><!--end row-->
 
         <div class="row justify-content-center">
+            @foreach($event->sponsors as $sponsor)
             <div class="col-lg-2 col-md-2 col-6 text-center mt-4 pt-2">
-                <img src="landing_assets/images/client/amazon.svg" class="avatar avatar-ex-sm" alt="">
+                <a href="{{ $sponsor->link }}"> <img src="{{ asset($sponsor->image) }}" class="avatar avatar-ex-md" style='max-height:50px' alt=""></a>
             </div><!--end col-->
-
-            <div class="col-lg-2 col-md-2 col-6 text-center mt-4 pt-2">
-                <img src="landing_assets/images/client/google.svg" class="avatar avatar-ex-sm" alt="">
-            </div><!--end col-->
-            
-            <div class="col-lg-2 col-md-2 col-6 text-center mt-4 pt-2">
-                <img src="landing_assets/images/client/lenovo.svg" class="avatar avatar-ex-sm" alt="">
-            </div><!--end col-->
-            
-            <div class="col-lg-2 col-md-2 col-6 text-center mt-4 pt-2">
-                <img src="landing_assets/images/client/paypal.svg" class="avatar avatar-ex-sm" alt="">
-            </div><!--end col-->
-            
-            <div class="col-lg-2 col-md-2 col-6 text-center mt-4 pt-2">
-                <img src="landing_assets/images/client/shopify.svg" class="avatar avatar-ex-sm" alt="">
-            </div><!--end col-->
-            
-            <div class="col-lg-2 col-md-2 col-6 text-center mt-4 pt-2">
-                <img src="landing_assets/images/client/spotify.svg" class="avatar avatar-ex-sm" alt="">
-            </div><!--end col-->
+            @endforeach
         </div><!--end row-->
     </div><!--end container-->
 </section><!--end section-->
@@ -216,13 +177,13 @@
 <!--Shape End-->
 
 <!-- Schedule Start -->
-<section class="section">
+<section class="section" id="schedules">
     <div class="container">
         <div class="row justify-content-center">
             <div class="col-12 text-center">
                 <div class="section-title mb-4 pb-2">
                     <h4 class="title mb-4">Event Schedules</h4>
-                    <p class="text-muted para-desc mx-auto mb-0">Start working with <span class="text-primary fw-bold">Landrick</span> that can provide everything you need to generate awareness, drive traffic, connect.</p>
+                    <p class="text-muted para-desc mx-auto mb-0">{{ $event->title }}'s Schedule and Order of Programme</p>
                 </div>
             </div><!--end col-->
         </div><!--end row-->
@@ -230,29 +191,18 @@
         <div class="row mt-4 pt-2 justify-content-center">
             <div class="col-lg-8 col-md-12 text-center">
                 <ul class="nav nav-pills bg-light rounded nav-justified flex-column flex-sm-row shadow" id="pills-tab" role="tablist">
+                    @for ($day = 1; $day <= $event->days; $day++)
+                    @php
+                        $word = convertNumberToWord($day);
+                    @endphp
                     <li class="nav-item">
-                        <a class="nav-link rounded active" id="pills-dayone-tab" data-bs-toggle="pill" href="#pills-dayone" role="tab" aria-controls="pills-dayone" aria-selected="false">
+                        <a class="nav-link rounded {{ $day == 1?'active' : ''  }}" id="pills-day{{$word}}-tab" data-bs-toggle="pill" href="#pills-day{{$word}}" role="tab" aria-controls="pills-day{{$word}}" aria-selected="false">
                             <div class="text-center py-2">
-                                <h6 class="mb-0">First Day</h6>
+                                <h6 class="mb-0">{{$word}} Day</h6>
                             </div>
                         </a><!--end nav link-->
                     </li><!--end nav item-->
-                    
-                    <li class="nav-item">
-                        <a class="nav-link rounded" id="pills-daytwo-tab" data-bs-toggle="pill" href="#pills-daytwo" role="tab" aria-controls="pills-daytwo" aria-selected="false">
-                            <div class="text-center py-2">
-                                <h6 class="mb-0">Second Day</h6>
-                            </div>
-                        </a><!--end nav link-->
-                    </li><!--end nav item-->
-                    
-                    <li class="nav-item">
-                        <a class="nav-link rounded" id="pills-daythree-tab" data-bs-toggle="pill" href="#pills-daythree" role="tab" aria-controls="pills-daythree" aria-selected="false">
-                            <div class="text-center py-2">
-                                <h6 class="mb-0">Third Day</h6>
-                            </div>
-                        </a><!--end nav link-->
-                    </li><!--end nav item-->
+                    @endfor
                 </ul><!--end nav pills-->
             </div>
         </div>
@@ -260,233 +210,35 @@
         <div class="row">
             <div class="col-12">
                 <div class="tab-content" id="pills-tabContent">
-                    <div class="tab-pane fade show active" id="pills-dayone" role="tabpanel" aria-labelledby="pills-dayone-tab">
-                        <div class="row">
-                            <div class="col-lg-6 mt-4 pt-2">
-                                <div class="card event-schedule event-primary rounded border">
-                                    <div class="card-body">
-                                        <div class="d-flex">
-                                            <ul class="date text-center me-3 mb-0 list-unstyled">
-                                                <li class="day fw-bold mb-2">11</li>
-                                                <li class="month fw-bold">OCT</li>
-                                            </ul>
-                                            <div class="flex-1 content">
-                                                <h4><a href="javascript:void(0)" class="text-dark title">Digital Conference Event Intro</a></h4>
-                                                <p class="text-muted location-time"><span class="text-dark h6">Address:</span> Hall 3, Sinchang-dong, Kwangju, <span class="text-danger">South Korea</span> <br> <span class="text-dark h6">Time:</span> 10:30AM to 11:15AM</p>
-                                                <a href="#tickets" class="btn btn-soft-primary btn-sm">Buy Ticket</a>
+                    @for ($day = 1; $day <= $event->days; $day++)
+                        @php
+                            $word = convertNumberToWord($day);
+                        @endphp
+                        <div class="tab-pane fade show {{ $day == 1?'active' : ''  }}" id="pills-day{{$word}}" role="tabpanel" aria-labelledby="pills-day{{$word}}-tab">
+                            <div class="row">
+                                @foreach($event->schedules->where('day', $day) as $schedule)
+                                <div class="col-lg-6 mt-4 pt-2">
+                                    <div class="card event-schedule event-primary rounded border">
+                                        <div class="card-body">
+                                            <div class="d-flex">
+                                                <ul class="date text-center me-3 mb-0 list-unstyled">
+                                                    <li class="day fw-bold mb-2">{{ date('F', strtotime($schedule->date)) }}</li>
+                                                    <li class="month fw-bold">{{ date('j', strtotime($schedule->date)) }}</li>
+                                                </ul>
+                                                <div class="flex-1 content">
+                                                    <h4><a href="javascript:void(0)" class="text-dark title">{{ $schedule->title }}</a></h4>
+                                                    <p class="text-muted location-time"><span class="text-dark h6">{{ $schedule->location }}</span> 
+                                                        <br> 
+                                                        <span class="text-dark h6">Time:</span> 10:30AM to 11:15AM</p>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
-                                </div>
-                            </div><!--end col-->
-                            
-                            <div class="col-lg-6 mt-4 pt-2">
-                                <div class="card event-schedule event-primary rounded border">
-                                    <div class="card-body">
-                                        <div class="d-flex">
-                                            <ul class="date text-center me-3 mb-0 list-unstyled">
-                                                <li class="day fw-bold mb-2">11</li>
-                                                <li class="month fw-bold">OCT</li>
-                                            </ul>
-                                            <div class="flex-1 content">
-                                                <h4><a href="javascript:void(0)" class="text-dark title">Conference On User Interface</a></h4>
-                                                <p class="text-muted location-time"><span class="text-dark h6">Address:</span> Hall 3, Sinchang-dong, Kwangju, <span class="text-danger">South Korea</span> <br> <span class="text-dark h6">Time:</span> 11:15AM to 12:30PM</p>
-                                                <a href="#tickets" class="btn btn-soft-primary btn-sm">Buy Ticket</a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div><!--end col-->
-                            
-                            <div class="col-lg-6 mt-4 pt-2">
-                                <div class="card event-schedule event-primary rounded border">
-                                    <div class="card-body">
-                                        <div class="d-flex">
-                                            <ul class="date text-center me-3 mb-0 list-unstyled">
-                                                <li class="day fw-bold mb-2">11</li>
-                                                <li class="month fw-bold">OCT</li>
-                                            </ul>
-                                            <div class="flex-1 content">
-                                                <h4><a href="javascript:void(0)" class="text-dark title">Business World Event Intro</a></h4>
-                                                <p class="text-muted location-time"><span class="text-dark h6">Address:</span> Hall 3, Sinchang-dong, Kwangju, <span class="text-danger">South Korea</span> <br> <span class="text-dark h6">Time:</span> 12:30PM to 01:00PM</p>
-                                                <a href="#tickets" class="btn btn-soft-primary btn-sm">Buy Ticket</a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div><!--end col-->
-                            
-                            <div class="col-lg-6 mt-4 pt-2">
-                                <div class="card event-schedule event-primary rounded border">
-                                    <div class="card-body">
-                                        <div class="d-flex">
-                                            <ul class="date text-center me-3 mb-0 list-unstyled">
-                                                <li class="day fw-bold mb-2">11</li>
-                                                <li class="month fw-bold">OCT</li>
-                                            </ul>
-                                            <div class="flex-1 content">
-                                                <h4><a href="javascript:void(0)" class="text-dark title">Business Conference for professional</a></h4>
-                                                <p class="text-muted location-time"><span class="text-dark h6">Address:</span> Hall 3, Sinchang-dong, Kwangju, <span class="text-danger">South Korea</span> <br> <span class="text-dark h6">Time:</span> 01:00PM to 02:15PM</p>
-                                                <a href="#tickets" class="btn btn-soft-primary btn-sm">Buy Ticket</a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div><!--end col-->
-                        </div><!--end row-->
-                    </div><!--end teb pane-->
-                    
-                    <div class="tab-pane fade" id="pills-daytwo" role="tabpanel" aria-labelledby="pills-daytwo-tab">
-                        <div class="row">
-                            <div class="col-lg-6 mt-4 pt-2">
-                                <div class="card event-schedule event-primary rounded border">
-                                    <div class="card-body">
-                                        <div class="d-flex">
-                                            <ul class="date text-center me-3 mb-0 list-unstyled">
-                                                <li class="day fw-bold mb-2">12</li>
-                                                <li class="month fw-bold">OCT</li>
-                                            </ul>
-                                            <div class="flex-1 content">
-                                                <h4><a href="javascript:void(0)" class="text-dark title">Digital Conference Event Intro</a></h4>
-                                                <p class="text-muted location-time"><span class="text-dark h6">Address:</span> Hall 1, Seo-gu, Kwangju, <span class="text-danger">South Korea</span> <br> <span class="text-dark h6">Time:</span> 10:30AM to 11:15AM</p>
-                                                <a href="#tickets" class="btn btn-soft-primary btn-sm">Buy Ticket</a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div><!--end col-->
-                            
-                            <div class="col-lg-6 mt-4 pt-2">
-                                <div class="card event-schedule event-primary rounded border">
-                                    <div class="card-body">
-                                        <div class="d-flex">
-                                            <ul class="date text-center me-3 mb-0 list-unstyled">
-                                                <li class="day fw-bold mb-2">12</li>
-                                                <li class="month fw-bold">OCT</li>
-                                            </ul>
-                                            <div class="flex-1 content">
-                                                <h4><a href="javascript:void(0)" class="text-dark title">Conference On User Interface</a></h4>
-                                                <p class="text-muted location-time"><span class="text-dark h6">Address:</span> Hall 1, Seo-gu, Kwangju, <span class="text-danger">South Korea</span> <br> <span class="text-dark h6">Time:</span> 11:15AM to 12:30PM</p>
-                                                <a href="#tickets" class="btn btn-soft-primary btn-sm">Buy Ticket</a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div><!--end col-->
-                            
-                            <div class="col-lg-6 mt-4 pt-2">
-                                <div class="card event-schedule event-primary rounded border">
-                                    <div class="card-body">
-                                        <div class="d-flex">
-                                            <ul class="date text-center me-3 mb-0 list-unstyled">
-                                                <li class="day fw-bold mb-2">12</li>
-                                                <li class="month fw-bold">OCT</li>
-                                            </ul>
-                                            <div class="flex-1 content">
-                                                <h4><a href="javascript:void(0)" class="text-dark title">Business World Event Intro</a></h4>
-                                                <p class="text-muted location-time"><span class="text-dark h6">Address:</span> Hall 1, Seo-gu, Kwangju, <span class="text-danger">South Korea</span> <br> <span class="text-dark h6">Time:</span> 12:30PM to 01:00PM</p>
-                                                <a href="#tickets" class="btn btn-soft-primary btn-sm">Buy Ticket</a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div><!--end col-->
-                            
-                            <div class="col-lg-6 mt-4 pt-2">
-                                <div class="card event-schedule event-primary rounded border">
-                                    <div class="card-body">
-                                        <div class="d-flex">
-                                            <ul class="date text-center me-3 mb-0 list-unstyled">
-                                                <li class="day fw-bold mb-2">12</li>
-                                                <li class="month fw-bold">OCT</li>
-                                            </ul>
-                                            <div class="flex-1 content">
-                                                <h4><a href="javascript:void(0)" class="text-dark title">Business Conference for professional</a></h4>
-                                                <p class="text-muted location-time"><span class="text-dark h6">Address:</span> Hall 1, Seo-gu, Kwangju, <span class="text-danger">South Korea</span> <br> <span class="text-dark h6">Time:</span> 01:00PM to 02:15PM</p>
-                                                <a href="#tickets" class="btn btn-soft-primary btn-sm">Buy Ticket</a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div><!--end col-->
-                        </div><!--end row-->                          
-                    </div><!--end teb pane-->
-
-                    <div class="tab-pane fade" id="pills-daythree" role="tabpanel" aria-labelledby="pills-daythree-tab">
-                        <div class="row">
-                            <div class="col-lg-6 mt-4 pt-2">
-                                <div class="card event-schedule event-primary rounded border">
-                                    <div class="card-body">
-                                        <div class="d-flex">
-                                            <ul class="date text-center me-3 mb-0 list-unstyled">
-                                                <li class="day fw-bold mb-2">13</li>
-                                                <li class="month fw-bold">OCT</li>
-                                            </ul>
-                                            <div class="flex-1 content">
-                                                <h4><a href="javascript:void(0)" class="text-dark title">Digital Conference Event Intro</a></h4>
-                                                <p class="text-muted location-time"><span class="text-dark h6">Address:</span> Hall 4, Gwangsan-gu, Kwangju, <span class="text-danger">South Korea</span> <br> <span class="text-dark h6">Time:</span> 10:30AM to 11:15AM</p>
-                                                <a href="#tickets" class="btn btn-soft-primary btn-sm">Buy Ticket</a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div><!--end col-->
-                            
-                            <div class="col-lg-6 mt-4 pt-2">
-                                <div class="card event-schedule event-primary rounded border">
-                                    <div class="card-body">
-                                        <div class="d-flex">
-                                            <ul class="date text-center me-3 mb-0 list-unstyled">
-                                                <li class="day fw-bold mb-2">13</li>
-                                                <li class="month fw-bold">OCT</li>
-                                            </ul>
-                                            <div class="flex-1 content">
-                                                <h4><a href="javascript:void(0)" class="text-dark title">Conference On User Interface</a></h4>
-                                                <p class="text-muted location-time"><span class="text-dark h6">Address:</span> Hall 4, Gwangsan-gu, Kwangju, <span class="text-danger">South Korea</span> <br> <span class="text-dark h6">Time:</span> 11:15AM to 12:30PM</p>
-                                                <a href="#tickets" class="btn btn-soft-primary btn-sm">Buy Ticket</a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div><!--end col-->
-                            
-                            <div class="col-lg-6 mt-4 pt-2">
-                                <div class="card event-schedule event-primary rounded border">
-                                    <div class="card-body">
-                                        <div class="d-flex">
-                                            <ul class="date text-center me-3 mb-0 list-unstyled">
-                                                <li class="day fw-bold mb-2">13</li>
-                                                <li class="month fw-bold">OCT</li>
-                                            </ul>
-                                            <div class="flex-1 content">
-                                                <h4><a href="javascript:void(0)" class="text-dark title">Business World Event Intro</a></h4>
-                                                <p class="text-muted location-time"><span class="text-dark h6">Address:</span> Hall 4, Gwangsan-gu, Kwangju, <span class="text-danger">South Korea</span> <br> <span class="text-dark h6">Time:</span> 12:30PM to 01:00PM</p>
-                                                <a href="#tickets" class="btn btn-soft-primary btn-sm">Buy Ticket</a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div><!--end col-->
-                            
-                            <div class="col-lg-6 mt-4 pt-2">
-                                <div class="card event-schedule event-primary rounded border">
-                                    <div class="card-body">
-                                        <div class="d-flex">
-                                            <ul class="date text-center me-3 mb-0 list-unstyled">
-                                                <li class="day fw-bold mb-2">13</li>
-                                                <li class="month fw-bold">OCT</li>
-                                            </ul>
-                                            <div class="flex-1 content">
-                                                <h4><a href="javascript:void(0)" class="text-dark title">Business Conference for professional</a></h4>
-                                                <p class="text-muted location-time"><span class="text-dark h6">Address:</span> Hall 4, Gwangsan-gu, Kwangju, <span class="text-danger">South Korea</span> <br> <span class="text-dark h6">Time:</span> 01:00PM to 02:15PM</p>
-                                                <a href="#tickets" class="btn btn-soft-primary btn-sm">Buy Ticket</a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div><!--end col-->
-                        </div><!--end row-->                  
-                    </div><!--end teb pane-->
+                                </div><!--end col-->
+                                @endforeach
+                            </div>
+                        </div>
+                    @endfor   
                 </div><!--end tab content-->
             </div><!--end col-->
         </div><!--end row-->
@@ -494,16 +246,18 @@
 </section><!--end section-->
 <!-- Schedule End -->
 
+@if(!empty($event->highlight))
 <!-- CTA Start -->
-<section class="section bg-cta jarallax" data-jarallax data-speed="0.5" style="background: url('landing_assets/images/event/cta.jpg') center center;" id="cta">
+<section class="section bg-cta jarallax" data-jarallax data-speed="0.5" style="background: url({{ asset($event->highlight->image) }}) center center;" id="cta">
     <div class="bg-overlay bg-primary bg-gradient" style="opacity: 0.85;"></div>
     <div class="container">
         <div class="row justify-content-center">
             <div class="col-12 text-center">
                 <div class="section-title">
-                    <h4 class="title title-dark text-white mb-4">Digital International Conference 2021</h4>
-                    <p class="text-white-50 para-desc mx-auto">Start working with Landrick that can provide everything you need to generate awareness, drive traffic, connect.</p>
-                    <a href="#!" data-type="youtube" data-id="yba7hPeTSjk" class="play-btn  mt-4 lightbox">
+                    <h4 class="title title-dark text-white mb-4">{{$event->highlight->title}}</h4>
+                    <p class="text-white-50 para-dark para-desc mx-auto">{!! $event->highlight->description !!}</p>
+                    <br>
+                    <a href="#" data-type="youtube" data-id="{{$event->highlight->link}}" class="play-btn  mt-4 lightbox">
                         <i data-feather="play" class="fea icon-ex-md text-white title-dark"></i>
                     </a>
                 </div>
@@ -512,8 +266,9 @@
     </div><!--end container-->
 </section><!--end section-->
 <!-- CTA End -->
+@endif
 
-<!-- Price Start -->
+{{-- <!-- Price Start -->
 <section class="section" id="tickets">
     <div class="container">
         <div class="row justify-content-center">
@@ -687,7 +442,7 @@
         </div><!--end row-->
     </div><!--end container-->
 </section><!--end section-->
-<!-- Price End -->
+<!-- Price End --> --}}
 
 <!-- Shape Start -->
 <div class="position-relative">
@@ -783,7 +538,7 @@
         </div><!--end row-->
     </div><!--end container-->
 
-    <div class="container mt-100 mt-60">
+    {{-- <div class="container mt-100 mt-60">
         <div class="row justify-content-center">
             <div class="col-12 text-center">
                 <div class="section-title mb-4 pb-2">
@@ -803,7 +558,7 @@
                 </div>
             </div>
         </div>
-    </div><!--end container-->
+    </div><!--end container--> --}}
 </section><!--end section-->
 <!-- End News -->
 

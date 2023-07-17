@@ -67,4 +67,14 @@ class Event extends Model
     {
         return $this->hasMany(Blog::class, 'event_id', 'id');
     }
+
+    /**
+     * Get the highlight associated with the Event
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasOne
+     */
+    public function highlight()
+    {
+        return $this->hasOne(Section::class, 'event_id', 'id');
+    }
 }

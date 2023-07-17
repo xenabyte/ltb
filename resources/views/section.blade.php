@@ -133,7 +133,7 @@
 
                                                                         <div class="mb-3">
                                                                             <label for="section" class="form-label">Location</label>
-                                                                            <select class="form-select" aria-label="position" name="position">
+                                                                            <select class="form-select" aria-label="location" name="location">
                                                                                 <option selected value= "">Select Location</option>
                                                                                 <option value="homepage">Homepage</option>
                                                                                 <option value="about">About-us Page</option>
@@ -143,7 +143,7 @@
                                                                         </div>
                                                                         
                                                                         <div class="mb-3">
-                                                                            <label for="link" class="form-label">Youtube Link</label>
+                                                                            <label for="link" class="form-label">Youtube Embed Code</label>
                                                                             <input type="text" class="form-control" name="link" id="link" value="{{ $section->link }}">
                                                                         </div>
                                             
@@ -214,7 +214,7 @@
 
                             <div class="mb-3">
                                 <label for="section" class="form-label">Location</label>
-                                <select class="form-select" aria-label="position" name="position">
+                                <select class="form-select" aria-label="location" name="location">
                                     <option selected value= "">Select Location</option>
                                     <option value="homepage">Homepage</option>
                                     <option value="about">About-us Page</option>
@@ -224,7 +224,7 @@
                             </div>
 
                             <div class="mb-3">
-                                <label for="link" class="form-label">Youtube Link</label>
+                                <label for="link" class="form-label">Youtube Embed Code</label>
                                 <input type="text" class="form-control" name="link" id="link">
                             </div>
 

@@ -71,7 +71,7 @@ class WelcomeController extends Controller
      */
     public function events()
     {
-        $sections = Section::get(); //where('position', 'event')->get();
+        $sections = Section::where('position', 'event')->get();
         $events = Event::all();
 
         return view('our-events', [
@@ -99,7 +99,7 @@ class WelcomeController extends Controller
      */
     public function contact()
     {
-        return view('contact');
+        return view('contact-us');
     }
 
 
@@ -110,7 +110,11 @@ class WelcomeController extends Controller
      */
     public function singleEvent($slug)
     {
-        return view('singleEvent');
+        $event = Event::with('features', 'sponsors', 'schedules', 'blogs')->where('slug', $slug)->first();
+
+        return view('singleEvent', [
+            'event' => $event
+        ]);
     }
 
     /**
@@ -122,4 +126,5 @@ class WelcomeController extends Controller
     {
         return view('singleBlog');
     }
+
 }

@@ -11,7 +11,7 @@ use Illuminate\Support\Facades\Hash;
 use App\Http\Requests;
 use Illuminate\Support\Facades\Validator;
 
-use App\Models\Blog;
+use App\Models\Blog as News;
 use App\Models\Contact;
 use App\Models\Event;
 use App\Models\Feature;
@@ -426,8 +426,12 @@ class HomeController extends Controller
             $slug = strtolower(trim(preg_replace('/[^A-Za-z0-9-]+/', '-', $request->title)));
         }
 
-        $imageUrl = 'uploads/section/'.$slug.'.'.$request->file('image')->getClientOriginalExtension();
-        $image = $request->file('image')->move('uploads/section', $imageUrl);
+        $eventId = $request->has('event_id') ? $request->event_id : null;
+        $imageUrl = null;
+        if(!empty($request->file('image'))){
+            $imageUrl = 'uploads/section/'.$slug.'.'.$request->file('image')->getClientOriginalExtension();
+            $image = $request->file('image')->move('uploads/section', $imageUrl);
+        }
 
         $addItem = ([            
             'title' => $request->title,
@@ -435,7 +439,8 @@ class HomeController extends Controller
             'image' => $imageUrl,
             'description' => $request->description,
             'link' => $request->link,
-            'position' => $request->position
+            'position' => $request->location,
+            'event_id' => $eventId
         ]);
 
         if(Section::create($addItem)){
@@ -475,8 +480,8 @@ class HomeController extends Controller
             $section->link = $request->link;
         }
 
-        if(!empty($request->position) &&  $request->position != $section->position){
-            $section->position = $request->position;
+        if(!empty($request->location) &&  $request->location != $section->location){
+            $section->position = $request->location;
         }
 
         if(!empty($request->image)){
@@ -660,7 +665,7 @@ class HomeController extends Controller
 
     public function event($slug){
         $event = Event::with('features', 'sponsors', 'schedules', 'blogs')->where('slug', $slug)->first();
-
+        log::info($event);
         return view('event', [
             'event' => $event 
         ]);
@@ -1003,4 +1008,176 @@ class HomeController extends Controller
         alert()->error('Oops!', 'Something went wrong')->persistent('Close');
         return redirect()->back();
     }
+
+    public function news(){
+
+        $news = News::get();
+
+        return view('news', [
+            'news' => $news,
+        ]);
+    }
+
+    public function addNews(Request $request){
+        $validator = Validator::make($request->all(), [
+            'title' => 'required',
+            'description' => 'required',
+            'image' => 'required|image',
+        ]);
+
+        if($validator->fails()) {
+            alert()->error('Error', $validator->messages()->all()[0])->persistent('Close');
+            return redirect()->back();
+        }
+
+        $slug = strtolower(trim(preg_replace('/[^A-Za-z0-9-]+/', '-', $request->title)));
+
+        $imageUrl = 'uploads/news/'.$slug.'.'.$request->file('image')->getClientOriginalExtension();
+        $image = $request->file('image')->move('uploads/news', $imageUrl);
+
+        $addNews = ([
+            'title' => $request->title,
+            'description' => $request->description,
+            'status' => self::STATUS_UNPUBLISH,
+            'image' => $imageUrl,
+            'slug' => $slug,
+            'created_at' => $request->created_at,
+        ]);
+
+        if(News::create($addNews)){
+            alert()->success('New added successfully', '')->persistent('Close');
+            return redirect()->back();
+        }
+
+        alert()->error('Oops!', 'Something went wrong')->persistent('Close');
+        return redirect()->back();
+    }
+
+    public function deleteNews(Request $request){
+
+        $validator = Validator::make($request->all(), [
+            'news_id' => 'required|min:1',
+        ]);
+
+        if($validator->fails()) {
+            alert()->error('Error', $validator->messages()->all()[0])->persistent('Close');
+            return redirect()->back();
+        }
+
+        if(!$news = News::find($request->news_id)){
+            alert()->error('Oops', 'Invalid News')->persistent('Close');
+            return redirect()->back();
+        }
+
+        if($news->delete()){
+            if(!empty($news->image)){
+                unlink($news->image);
+            }
+            alert()->success('Record Deleted', '')->persistent('Close');
+            return redirect()->back();
+        }
+
+        alert()->error('Oops!', 'Something went wrong')->persistent('Close');
+        return redirect()->back();
+    }
+
+    public function updateNews(Request $request){
+        $validator = Validator::make($request->all(), [
+            'news_id' => 'required|min:1',
+            'image' => 'nullable|image|dimensions:width=870,height=413',
+        ]);
+
+        if($validator->fails()) {
+            alert()->error('Error', $validator->messages()->all()[0])->persistent('Close');
+            return redirect()->back();
+        }
+
+        if(!$news = News::find($request->news_id)){
+            alert()->error('Oops', 'Invalid News')->persistent('Close');
+            return redirect()->back();
+        }
+
+        $slug = strtolower(trim(preg_replace('/[^A-Za-z0-9-]+/', '-', $request->title)));
+
+        if(!empty($request->title) &&  $request->title != $news->title){
+            $news->title = $request->title;
+            $news->slug = $slug;
+        }
+
+        if(!empty($request->description) &&  $request->description != $news->description){
+            $news->description = $request->description;
+        }
+
+        if(!empty($request->created_at) && $request->created_at != $news->created_at){
+            $news->created_at = $request->created_at;
+        }
+
+        if(!empty($request->image)){
+            if(!empty($news->image)){
+                unlink($news->image);
+            }
+
+            $imageUrl = 'uploads/news/'.$slug.'.'.$request->file('image')->getClientOriginalExtension();
+            $image = $request->file('image')->move('uploads/news', $imageUrl);
+
+            $news->image = $imageUrl;
+        }
+
+        if($news->save()){
+            alert()->success('Changes Saved', 'News changes saved successfully')->persistent('Close');
+            return redirect()->back();
+        }
+
+        alert()->error('Oops!', 'Something went wrong')->persistent('Close');
+        return redirect()->back();
+    }
+
+    public function managePost(Request $request){
+        $validator = Validator::make($request->all(), [
+            'news_id' => 'required',
+            'action' => 'required'
+        ]);
+
+
+        if($validator->fails()) {
+            alert()->error('Error', $validator->messages()->all()[0])->persistent('Close');
+            return redirect()->back();
+        }
+
+        if(!$news = News::find($request->news_id)){
+            alert()->error('Oops', 'Invalid Blog Information')->persistent('Close');
+            return redirect()->back();
+        }
+        $action = $request->action;
+        if($action == 'unpublish'){
+            $action = self::STATUS_UNPUBLISH;
+            $news->status = $action;
+
+            log::info($action);
+            if($news->save()){
+                alert()->success('Changes Saved', '')->persistent('Close');
+                return redirect()->back();
+            }
+        }
+
+        if($action != 'delete'){
+            $action = self::STATUS_PUBLISHED;
+            $news->status = $action;
+
+            if($news->save()){
+                alert()->success('Changes Saved', '')->persistent('Close');
+                return redirect()->back();
+            }
+        }
+
+        unlink($news->image);
+        if($news->delete()){
+            alert()->success('Post Deleted', '')->persistent('Close');
+            return redirect()->back();
+        }
+
+
+        alert()->error('Oops!', 'Something went wrong')->persistent('Close');
+        return redirect()->back();
+    } 
 }

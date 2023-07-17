@@ -24,6 +24,7 @@ class Section extends Model
         'image', 
         'type',
         'link',
-        'position'
+        'position',
+        'event_id'
     ];
 }

@@ -302,16 +302,16 @@
                                         <div class="collapse menu-dropdown" id="landing">
                                             <ul class="nav nav-sm flex-column">
                                                 <li class="nav-item">
-                                                    <a href="{{('sliders')}}" class="nav-link"> Slider Section</a>
+                                                    <a href="{{url('sliders')}}" class="nav-link"> Slider Section</a>
                                                 </li>
                                             </ul>
                                         </div>
                                     </li> <!-- end landing page menu -->
                                     <li class="nav-item">
-                                        <a href="{{('sections')}}" class="nav-link">Page Sections </a>
+                                        <a href="{{url('sections')}}" class="nav-link">Page Sections </a>
                                     </li>
                                     <li class="nav-item">
-                                        <a href="{{('blogs')}}" class="nav-link">Blogs </a>
+                                        <a href="{{url('news')}}" class="nav-link">Blogs </a>
                                     </li>
                                 </ul>
                             </div>

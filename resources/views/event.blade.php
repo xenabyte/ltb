@@ -207,6 +207,7 @@
                                                                         <option value="Panelist">Panelist</option>
                                                                         <option value="Artist">Artist</option>
                                                                         <option value="Exhibitor">Exhibitor</option>
+                                                                        <option value="Team">Organizer</option>
                                                                         <option value="Special Guest of Honor">Special Guest of Honor</option>
                                                                     </select>
                                                                 </div>
@@ -342,7 +343,7 @@
                 </div><!-- end card -->
             </div><!-- end col -->
 
-            <div class="col-xxl-12 col-lg-6">
+            <div class="col-xxl-4 col-lg-6">
                 <div class="card card-height-100">
                     <div class="card-header align-items-center d-flex">
                         <h4 class="card-title mb-0 flex-grow-1">Schedules</h4>
@@ -367,7 +368,7 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                @if(!empty($event->schedule))
+                                @if(!empty($event->schedules))
                                     @foreach($event->schedules as $schedule)
                                         <tr>
                                             <td>{{ $loop->iteration }}</td>
@@ -422,8 +423,13 @@
                                                                 <input name="schedule_id" type="hidden" value="{{$schedule->id}}">
                                     
                                                                 <div class="mb-3">
+                                                                    <label for="title" class="form-label">Title</label>
+                                                                    <input type="text" class="form-control" name="title" id="title" value="{{$schedule->title}}">
+                                                                </div>
+
+                                                                <div class="mb-3">
                                                                     <label for="day" class="form-label">Day</label>
-                                                                    <input type="number" class="form-control" name="day" id="day" value="{{$schedule->id}}">
+                                                                    <input type="number" class="form-control" name="day" id="day" value="{{$schedule->day}}">
                                                                 </div>
                                     
                                                                 <div class="mb-3">
@@ -464,6 +470,52 @@
                         </div>
                             
                     </div><!-- end cardbody -->
+                </div><!-- end card -->
+            </div><!-- end col -->
+
+            <div class="col-xxl-8 col-lg-6">
+                <div class="card">
+                    <div class="card-header align-items-center d-flex">
+                        <h4 class="card-title mb-0 flex-grow-1">section</h4>
+                        <div class="flex-shrink-0">
+                            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addsection">Add section Item</button>
+                        </div>
+                    </div><!-- end card header -->
+
+                    @if(!empty($event->highlight))
+                    <div class="card-body">
+                        <div class="row mb-2">
+                            <div class="col-sm-6 col-xl-12">
+                                
+                                <table id="fixed-header" class="table table-borderedless dt-responsive nowrap table-striped align-middle" style="width:100%">
+                                    <thead>
+                                        <tr>
+                                            <th scope="col">Title</th>
+                                            <th scope="col">Description</th>
+                                            <th scope="col">Image</th>
+                                            <th scope="col">Link</th>
+                                            <th scope="col"></th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>{{ $event->highlight->title }} </td>
+                                            <td>{!! $event->highlight->description !!}</td>
+                                            <td><img class="rounded shadow" alt="{{ $event->highlight->image }}" width="50%" src="{{ asset($event->highlight->image) }}"></td>
+                                            <td>{{ $event->highlight->link }}</td>
+                                            <td>
+                                                <div class="hstack gap-3 fs-15">
+                                                    <a href="javascript:void(0);" data-bs-toggle="modal" data-bs-target="#deleteHighlight" class="link-danger"><i class="ri-delete-bin-5-line"></i></a>
+                                                    <a href="javascript:void(0);" data-bs-toggle="modal" data-bs-target="#editHighlight" class="link-primary"><i class="ri-edit-circle-fill"></i></a>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div><!-- end col -->
+                        </div>
+                    </div>
+                    @endif
                 </div><!-- end card -->
             </div><!-- end col -->
         </div>
@@ -582,6 +634,7 @@
                                     <option value="Panelist">Panelist</option>
                                     <option value="Artist">Artist</option>
                                     <option value="Exhibitor">Exhibitor</option>
+                                    <option value="Team">Organizer</option>
                                     <option value="Special Guest of Honor">Special Guest of Honor</option>
                                 </select>
                             </div>
@@ -643,13 +696,18 @@
                     </div>
 
                     <div class="modal-body">
-                        <form action="{{ url('/addSponsor') }}" method="post" enctype="multipart/form-data">
+                        <form action="{{ url('/addSchedule') }}" method="post" enctype="multipart/form-data">
                             @csrf
                             <input type="hidden" name="event_id" value="{{ $event->id }}">
 
                             <div class="mb-3">
+                                <label for="title" class="form-label">Title</label>
+                                <input type="text" class="form-control" name="title" id="title">
+                            </div>
+
+                            <div class="mb-3">
                                 <label for="day" class="form-label">Day</label>
-                                <input type="number" class="form-control" name="day" id="day">
+                                <input type="number" class="form-control" min="1" max="{{$event->day}}" name="day" id="day">
                             </div>
 
                             <div class="mb-3">
@@ -681,6 +739,130 @@
                 </div><!-- /.modal-content -->
             </div><!-- /.modal-dialog -->
         </div><!-- /.modal -->
+
+        @if(!empty($event->highlight))
+        <div id="deleteHighlight" class="modal fade" tabindex="-1" aria-hidden="true" style="display: none;">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-body text-center p-5">
+                        <div class="text-end">
+                            <button type="button" class="btn-close text-end" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="mt-2">
+                            <lord-icon src="https://cdn.lordicon.com/wwneckwc.json" trigger="hover" style="width:150px;height:150px">
+                            </lord-icon>
+                            <h4 class="mb-3 mt-4">Are you sure you want to delete <br/> {{ $event->highlight->title }}?</h4>
+                            <form action="{{ url('/deleteSectionItem') }}" method="POST">
+                                @csrf
+                                <input name="section_id" type="hidden" value="{{$event->highlight->id}}">
+                                <hr>
+                                <button type="submit" class="btn btn-danger w-100">Yes, Delete</button>
+                            </form>
+                        </div>
+                    </div>
+                    <div class="modal-footer bg-light p-3 justify-content-center">
+
+                    </div>
+                </div><!-- /.modal-content -->
+            </div><!-- /.modal-dialog -->
+        </div><!-- /.modal -->
+
+        <div id="editHighlight" class="modal fade" tabindex="-1" aria-hidden="true" style="display: none;">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content border-0 overflow-hidden">
+                    <div class="modal-header p-3">
+                        <h4 class="card-title mb-0">Edit section Item</h4>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+
+                    <div class="modal-body">
+                        <form action="{{ url('/updateSectionItem') }}" method="post" enctype="multipart/form-data">
+                            @csrf
+
+                            <input name="section_id" type="hidden" value="{{$event->highlight->id}}">
+                            <input type="hidden" name="type" value="youtube">
+                            <input type="hidden" name="location" value="event-details">
+
+
+                            <div class="mb-3">
+                                <label for="title" class="form-label">Title</label>
+                                <input type="text" class="form-control" name="title" id="title" value="{{ $event->highlight->title }}">
+                            </div>
+
+                            <div class="mbr-3">
+                                <label for="description" class="form-label">Description</label>
+                                <textarea class="form-control" name="description" id="description">{!! $event->highlight->description !!}</textarea>
+                            </div>
+                            
+                            <div class="mb-3">
+                                <label for="link" class="form-label">Youtube Embed Code</label>
+                                <input type="text" class="form-control" name="link" id="link" value="{{ $event->highlight->link }}">
+                            </div>
+
+                            <div class="mb-3">
+                                <label for="image" class="form-label">Image</label>
+                                <input type="file" class="form-control" name='image' id="image">
+                            </div>
+                                        
+                            <hr>
+                            <div class="text-end">
+                                <button type="submit" class="btn btn-primary">Save Changes</button>
+                            </div>
+                        </form>
+                    </div>
+                </div><!-- /.modal-content -->
+            </div><!-- /.modal-dialog -->
+        </div><!-- /.modal -->
+        @endif
+
+        <div id="addsection" class="modal fade" tabindex="-1" aria-hidden="true" data-bs-backdrop="static" style="display: none;">
+            <!-- Fullscreen Modals -->
+            <div class="modal-dialog modal-xl">
+                <div class="modal-content border-0 overflow-hidden">
+                    <div class="modal-header p-3">
+                        <h4 class="card-title mb-0">Add section Item</h4>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+
+                    <div class="modal-body">
+                        <form action="{{ url('/addSectionItem') }}" method="post" enctype="multipart/form-data">
+                            @csrf
+                            <input type="hidden" name="event_id" value="{{ $event->id }}">
+                            <input type="hidden" name="type" value="youtube">
+                            <input type="hidden" name="location" value="event-details">
+
+
+                            <div class="mb-3">
+                                <label for="title" class="form-label">Title</label>
+                                <input type="text" class="form-control" name="title" id="title">
+                            </div>
+
+                            <div class="mbr-3">
+                                <label for="description" class="form-label">Description</label>
+                                <textarea class="form-control" name="description" id="description"></textarea>
+                            </div>
+
+                            <div class="mb-3">
+                                <label for="link" class="form-label">Youtube Embed Code</label>
+                                <input type="text" class="form-control" name="link" id="link">
+                            </div>
+
+                            <div class="mb-3">
+                                <label for="image" class="form-label">Image</label>
+                                <input type="file" class="form-control" name='image' id="image">
+                            </div>
+                                      
+
+                            <hr>
+                            <div class="text-end">
+                                <button type="submit" class="btn btn-primary">Create a section Item</button>
+                            </div>
+                        </form>
+                    </div>
+                </div><!-- /.modal-content -->
+            </div><!-- /.modal-dialog -->
+        </div><!-- /.modal -->
+
 
     </div>
 </div>

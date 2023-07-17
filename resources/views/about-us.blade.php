@@ -78,7 +78,7 @@ $youtubeSection = $sections->where('type', 'youtube')->first();
                         <p class="text-white-50 para-dark para-desc mx-auto">{!! $youtubeSection->description !!}</p>
                         <br>
                         @if(!empty($youtubeSection->link))
-                        <a href="{{$youtubeSection->link}}" data-type="youtube" data-id="yba7hPeTSjk" class="play-btn  mt-4 lightbox">
+                        <a href="#" data-type="youtube" data-id="{{$youtubeSection->link}}" class="play-btn  mt-4 lightbox">
                             <i data-feather="play" class="fea icon-ex-md text-white title-dark"></i>
                         </a>
                         @endif

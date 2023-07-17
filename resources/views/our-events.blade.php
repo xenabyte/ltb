@@ -69,7 +69,7 @@ $eventSection = $sections->where('type', 'event')->first();
                     <div class="tab-pane fade show {{$loop->iteration == 1 ?'active':'' }} p-4 rounded shadow" id="{{$event->slug}}" role="tabpanel" aria-labelledby="{{$event->slug}}">
                         <img src="{{asset($event->image)}}" class="img-fluid rounded shadow" alt="">
                         <div class="mt-4">
-                            <p class="text-muted">{{ $event->description }}</p>
+                            <p class="text-muted">{!! $event->description !!}</p>
                             <a href="{{ url('/event-details/'.$event->slug)  }}" class="text-primary">See More <i class="uil uil-angle-right-b align-middle"></i></a>
                         </div>
                     </div><!--end teb pane-->
@@ -92,7 +92,7 @@ $eventSection = $sections->where('type', 'event')->first();
                             <p class="text-white-50 para-dark para-desc mx-auto">{!! $youtubeSection->description !!}</p>
                             <br>
                             @if(!empty($youtubeSection->link))
-                            <a href="{{$youtubeSection->link}}" data-type="youtube" data-id="yba7hPeTSjk" class="play-btn  mt-4 lightbox">
+                            <a href="#" data-type="youtube" data-id="{{$youtubeSection->link}}" class="play-btn  mt-4 lightbox">
                                 <i data-feather="play" class="fea icon-ex-md text-white title-dark"></i>
                             </a>
                             @endif

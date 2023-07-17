@@ -4,6 +4,7 @@ if(!empty($sections)){
 $aboutSection = $sections->where('type', 'about')->first();
 $youtubeSection = $sections->where('type', 'youtube')->first();
 $teamSection = $sections->where('type', 'team')->first();
+$blogSection = $sections->where('type', 'blog')->first();
 }
 ?>
 <section class="swiper-slider-hero position-relative d-block vh-100" id="home">
@@ -90,7 +91,7 @@ $teamSection = $sections->where('type', 'team')->first();
                         <img src="{{asset($teamSection->image)}}" class="img-fluid rounded-md shadow-lg" alt="">
                         @if(!empty($teamSection->link))
                         <div class="play-icon">
-                            <a href="{{ $teamSection->link }}" data-type="youtube" data-id="yba7hPeTSjk" class="play-btn lightbox border-0">
+                            <a href="#" data-type="youtube" data-id="{{ $teamSection->link }}" class="play-btn lightbox border-0">
                                 <i class="mdi mdi-play text-primary rounded-circle shadow-lg"></i>
                             </a>
                         </div>
@@ -138,7 +139,7 @@ $teamSection = $sections->where('type', 'team')->first();
                         <p class="text-white-50 para-dark para-desc mx-auto">{!! $youtubeSection->description !!}</p>
                         <br>
                         @if(!empty($youtubeSection->link))
-                        <a href="{{$youtubeSection->link}}" data-type="youtube" data-id="yba7hPeTSjk" class="play-btn  mt-4 lightbox">
+                        <a href="#" data-type="youtube" data-id="{{$youtubeSection->link}}" class="play-btn  mt-4 lightbox">
                             <i data-feather="play" class="fea icon-ex-md text-white title-dark"></i>
                         </a>
                         @endif
@@ -273,20 +274,16 @@ $teamSection = $sections->where('type', 'team')->first();
     </div><!--end container-->
     @endif
 
+    @if(!empty($blogSection))
     <div class="container mt-100 mt-60">
         <div class="row align-items-center mb-4 pb-2">
             <div class="col-lg-6">
                 <div class="section-title text-center text-lg-start">
                     <h6 class="text-primary">Blog</h6>
-                    <h4 class="title mb-4 mb-lg-0">Reads Our Latest <br> News & Blog</h4>
+                    <h4 class="title mb-4 mb-lg-0">{{$blogSection->title}}</h4>
                 </div>
             </div><!--end col-->
 
-            <div class="col-lg-6">
-                <div class="section-title text-center text-lg-start">
-                    <p class="text-muted mb-0 mx-auto para-desc">Start working with <span class="text-primary fw-bold">Landrick</span> that can provide everything you need to generate awareness, drive traffic, connect.</p>
-                </div>
-            </div><!--end col-->
         </div><!--end row-->
 
         <div class="row">
@@ -360,6 +357,8 @@ $teamSection = $sections->where('type', 'team')->first();
             </div><!--end col-->
         </div><!--end row-->
     </div><!--end container-->
+    @endif
+
 </section><!--end section-->
 
 @include('includes.mainFooter')
