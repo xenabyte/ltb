@@ -44,10 +44,12 @@ class WelcomeController extends Controller
     {
         $sliders = Slider::get();
         $sections = Section::where('position', 'homepage')->get();
+        $news = News::with('event')->where('status', self::STATUS_PUBLISHED)->get();
 
         return view('welcome', [
             'sliders' => $sliders,
             'sections' => $sections,
+            'news' => $news,
         ]);
     }
 

@@ -50,7 +50,7 @@
             <div class="container">
                 <!-- Logo container-->
                 <div>
-                    <a class="logo" href="index.html">
+                    <a class="logo" href="{{url('/')}}">
                     <span class="logo-light-mode">
                         <img src="{{ asset($pageGlobalData->setting->logo) }}" class="l-dark" height="150" style="margin-top: -30%" alt="">
                         <img src="{{ asset($pageGlobalData->setting->footer_logo) }}" class="l-light" height="150" style="margin-top: -30%" alt="">
