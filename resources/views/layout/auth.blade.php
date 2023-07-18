@@ -61,13 +61,13 @@
                                                     </div>
                                                     <div class="carousel-inner text-center text-white pb-5">
                                                         <div class="carousel-item active">
-                                                            <p class="fs-15 fst-italic">" Leave The Box AFRICA "</p>
+                                                            <p class="fs-14 fst-italic">" Leave The Box AFRICA "</p>
                                                         </div>
                                                         <div class="carousel-item">
-                                                            <p class="fs-15 fst-italic">" Creativity and Innovation "</p>
+                                                            <p class="fs-14 fst-italic">" Creativity and Innovation "</p>
                                                         </div>
                                                         <div class="carousel-item">
-                                                            <p class="fs-15 fst-italic">" Impact and Excellence "</p>
+                                                            <p class="fs-14 fst-italic">" Impact and Excellence "</p>
                                                         </div>
                                                     </div>
                                                 </div>

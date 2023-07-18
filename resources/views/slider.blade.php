@@ -34,10 +34,10 @@
                     <div class="card-body">
                         <div class="row">
                             @foreach($sliders as $slider)
-                            <div class="col-md-12">
+                            <div class="col-md-4">
                                 <div class="card">
                                     <div class="card-body">
-                                        <img class="rounded shadow" alt="{{ $slider->image }}" width="50%" src="{{ asset($slider->image) }}">
+                                        <img class="rounded shadow" alt="{{ $slider->image }}" width="100%" src="{{ asset($slider->image) }}">
                                         <hr>
                                         <h4 class="card-title mb-0 flex-grow-1">{{ $slider->title }}</h4>
                                         <hr>
@@ -111,7 +111,7 @@
                                                     
                                                     <div class="mb-3">
                                                         <label for="link" class="form-label">Button Link</label>
-                                                        <input type="text" class="form-control" name="button_1_link" id="link" value="{{ $slider->button_ink }}">
+                                                        <input type="text" class="form-control" name="button_link" id="link" value="{{ $slider->button_link }}">
                                                     </div>
 
                                                     <hr>

@@ -12,7 +12,7 @@ $blogSection = $sections->where('type', 'blog')->first();
         <div class="swiper-wrapper">
             @foreach($sliders as $slider)
             <div class="swiper-slide d-flex align-items-center overflow-hidden">
-                <div class="slide-inner slide-bg-image d-flex align-items-center" style="background: center center;" data-background="{{asset($slider->image)}}">
+                <div class="slide-inner slide-bg-image d-flex align-items-center" style="background: center center; background-repeat: no-repeat; background-size: cover;" data-background="{{asset($slider->image)}}">
                     <div class="bg-overlay"></div>
                     <div class="container">
                         <div class="row justify-content-center">

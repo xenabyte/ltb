@@ -192,7 +192,7 @@ class HomeController extends Controller
     public function addSlider(Request $request){
         $validator = Validator::make($request->all(), [
             'title' => 'nullable',
-            'image' => 'required|image|dimensions:min_width=1510,min_height=640,max_width=1930,max_height=780',
+            'image' => 'required|image',//dimensions:min_width=1510,min_height=640,max_width=1930,max_height=780',
             'description' => 'nullable',
         ]);
 
@@ -228,7 +228,7 @@ class HomeController extends Controller
     public function updateSlider(Request $request){
         $validator = Validator::make($request->all(), [
             'slider_id' => 'required|min:1',
-            'image' => 'nullable|image|dimensions:min_width=1910,min_height=750,max_width=1930,max_height=780'
+            'image' => 'nullable|image' //|dimensions:min_width=1910,min_height=750,max_width=1930,max_height=780'
         ]);
 
 
