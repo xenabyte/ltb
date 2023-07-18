@@ -11,7 +11,7 @@ use Illuminate\Support\Facades\Hash;
 use App\Http\Requests;
 use Illuminate\Support\Facades\Validator;
 
-use App\Models\Blog;
+use App\Models\Blog as News;
 use App\Models\Contact;
 use App\Models\Event;
 use App\Models\Feature;
@@ -32,7 +32,8 @@ use Carbon\Carbon;
 
 class WelcomeController extends Controller
 {
-    //
+    const STATUS_UNPUBLISH = 'unpublish';
+    const STATUS_PUBLISHED = 'publish'; 
 
     /**
      * Show the application dashboard.
@@ -88,7 +89,11 @@ class WelcomeController extends Controller
      */
     public function blogs()
     {
-        return view('our-blog');
+        $news = News::with('event')->where('status', self::STATUS_PUBLISHED)->get();
+
+        return view('our-blog', [
+            'news' => $news,
+        ]);
     }
 
 
@@ -124,7 +129,18 @@ class WelcomeController extends Controller
      */
     public function singleBlog($slug)
     {
-        return view('singleBlog');
+        $blog = News::with('event')->where('slug', $slug)->first();
+        $news = News::with('event')->where('status', self::STATUS_PUBLISHED)->get();
+
+        if(empty($blog)){
+            alert()->error('Oops!', 'News details not available')->persistent('Close');
+            return redirect()->back();
+        }
+
+        return view('singleBlog', [
+            'blog' => $blog,
+            'news' => $news,
+        ]);
     }
 
 }

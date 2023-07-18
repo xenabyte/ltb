@@ -10,7 +10,7 @@
     <meta content="{{ env('APP_NAME') }}" name="description" />
     <meta content="Ogundele Damilare(KoderiaNG)" name="author" />
     <!-- App favicon -->
-    <link rel="shortcut icon" href="{{asset('assets/images/favicon.ico')}}">
+    <link rel="shortcut icon" href="{{asset('favicon.ico')}}">
 
     <!-- Layout config Js -->
     <script src="{{asset('assets/js/layout.js')}}"></script>
@@ -39,7 +39,7 @@
                     <div class="col-lg-12">
                         <div class="card overflow-hidden">
                             <div class="row g-0">
-                                <div class="col-lg-6">
+                                <div class="col-lg-3">
                                     <div class="p-lg-5 p-4 auth-one-bg h-100">
                                         <div class="bg-overlay"></div>
                                         <div class="position-relative h-100 d-flex flex-column">

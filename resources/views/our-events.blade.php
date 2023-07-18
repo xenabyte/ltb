@@ -43,7 +43,7 @@ $eventSection = $sections->where('type', 'event')->first();
             <div class="col-md-8">
                 <div class="section-title text-center text-md-start">
                     <h6 class="text-primary">Our Events</h6>
-                    <h4 class="title mb-4">{{ $eventSection->title }}</h4>
+                    <h4 class="title mb-4"></h4>
                 </div>
             </div><!--end col-->
         </div><!--end row-->

@@ -2,7 +2,7 @@
 
 @section('content')
 
-<div class="col-lg-6">
+<div class="col-lg-9">
     <div class="p-lg-5 p-4">
         <div>
             <h5 class="text-primary">Welcome Back !</h5>

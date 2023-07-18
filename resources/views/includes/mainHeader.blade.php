@@ -14,7 +14,7 @@
         <meta name="Version" content="v4.7.0">
 
         <!-- favicon -->
-        <link rel="shortcut icon" href="{{asset('landing_assets/images/favicon.ico')}}">
+        <link rel="shortcut icon" href="{{asset('favicon.ico')}}">
         
         <!-- Css -->
         <link href="{{asset('landing_assets/libs/tiny-slider/tiny-slider.css')}}" rel="stylesheet">

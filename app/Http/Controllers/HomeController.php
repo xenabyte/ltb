@@ -32,6 +32,8 @@ use Carbon\Carbon;
 
 class HomeController extends Controller
 {
+    const STATUS_UNPUBLISH = 'unpublish';
+    const STATUS_PUBLISHED = 'publish'; 
     /**
      * Create a new controller instance.
      *
@@ -1012,9 +1014,12 @@ class HomeController extends Controller
     public function news(){
 
         $news = News::get();
+        $events = Event::all();
+
 
         return view('news', [
             'news' => $news,
+            'events' => $events
         ]);
     }
 
@@ -1042,6 +1047,7 @@ class HomeController extends Controller
             'image' => $imageUrl,
             'slug' => $slug,
             'created_at' => $request->created_at,
+            'event_id' => $request->event_id,
         ]);
 
         if(News::create($addNews)){
@@ -1106,6 +1112,10 @@ class HomeController extends Controller
 
         if(!empty($request->description) &&  $request->description != $news->description){
             $news->description = $request->description;
+        }
+
+        if(!empty($request->event_id) &&  $request->event_id != $slider->event_id){
+            $slider->event_id = $request->event_id;
         }
 
         if(!empty($request->created_at) && $request->created_at != $news->created_at){
@@ -1179,5 +1189,7 @@ class HomeController extends Controller
 
         alert()->error('Oops!', 'Something went wrong')->persistent('Close');
         return redirect()->back();
-    } 
+    }
+
+    
 }

@@ -21,6 +21,17 @@ class Blog extends Model
         'slug', 
         'image', 
         'event_id', 
-        'description'
+        'description',
+        'status'
     ];
+
+    /**
+     * Get the event that owns the Blog
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function event()
+    {
+        return $this->belongsTo(Event::class, 'event_id');
+    }
 }

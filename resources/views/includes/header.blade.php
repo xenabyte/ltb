@@ -9,7 +9,7 @@
     <meta content="{{env('APP_DESCRIPTION')}}" name="description" />
     <meta content="LTB by Oladipo Damilare" name="author" />
     <!-- App favicon -->
-    <link rel="shortcut icon" href="assets/images/favicon.ico">
+    <link rel="shortcut icon" href="{{asset('favicon.ico')}}">
 
     <!-- Layout config Js -->
     <script src="{{asset('assets/js/layout.js')}}"></script>

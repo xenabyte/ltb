@@ -44,6 +44,7 @@
                                             <th scope="col">Id</th>
                                             <th scope="col">Title</th>
                                             <th scope="col">Image</th>
+                                            <th scope="col">Event</th>
                                             <th scope="col">Status</th>
                                             <th scope="col">Posted Date</th>
                                             <th scope="col"></th>
@@ -54,7 +55,8 @@
                                         <tr>
                                             <th scope="row">{{ $loop->iteration }}</th>
                                             <td>{{ $singleNews->title }} </td>
-                                            <td><img class="rounded shadow" alt="{{ $singleNews->image }}" width="50%" src="{{ asset($singleNews->image) }}"></td>
+                                            <td><img class="rounded shadow" alt="{{ $singleNews->image }}" width="30%" src="{{ asset($singleNews->image) }}"></td>
+                                            <td>{{ !empty($singleNews->event)? $singleNews->event->title : null }}</td>
                                             <td><span class="badge badge-soft-primary">{{ $singleNews->status == 'unpublish' ? 'Draft' : 'Published' }}</span></td>
                                             <td>{{ date('F jS, Y \a\t g:i A', strtotime($singleNews->created_at)) }}</td>
                                             <td>
@@ -79,7 +81,7 @@
                                                                         <lord-icon src="https://cdn.lordicon.com/wloilxuq.json" trigger="hover" style="width:150px;height:150px">
                                                                         </lord-icon>
                                                                         <h4 class="mb-3 mt-4">Are you sure you want to publish news?</h4>
-                                                                        <form action="{{ url('/admin/managePost') }}" method="POST">
+                                                                        <form action="{{ url('/managePost') }}" method="POST">
                                                                             @csrf
                                                                             <input name="news_id" type="hidden" value="{{$singleNews->id}}">
                                                                             <input name="action" type="hidden" value="publish">
@@ -106,7 +108,7 @@
                                                                         <lord-icon src="https://cdn.lordicon.com/wloilxuq.json" trigger="hover" style="width:150px;height:150px">
                                                                         </lord-icon>
                                                                         <h4 class="mb-3 mt-4">Are you sure you want to unpublish news?</h4>
-                                                                        <form action="{{ url('/admin/managePost') }}" method="POST">
+                                                                        <form action="{{ url('/managePost') }}" method="POST">
                                                                             @csrf
                                                                             <input name="news_id" type="hidden" value="{{$singleNews->id}}">
                                                                             <input name="action" type="hidden" value="unpublish">
@@ -133,7 +135,7 @@
                                                                         <lord-icon src="https://cdn.lordicon.com/wwneckwc.json" trigger="hover" style="width:150px;height:150px">
                                                                         </lord-icon>
                                                                         <h4 class="mb-3 mt-4">Are you sure you want to delete <br/> {{ $singleNews->title }}?</h4>
-                                                                        <form action="{{ url('/admin/managePost') }}" method="POST">
+                                                                        <form action="{{ url('/managePost') }}" method="POST">
                                                                             @csrf
                                                                             <input name="news_id" type="hidden" value="{{$singleNews->id}}">
                                                                             <input name="action" type="hidden" value="delete">
@@ -158,7 +160,7 @@
                                                                 </div>
                                         
                                                                 <div class="modal-body">
-                                                                    <form action="{{ url('/admin/updateNews') }}" method="post" enctype="multipart/form-data">
+                                                                    <form action="{{ url('/updateNews') }}" method="post" enctype="multipart/form-data">
                                                                         @csrf
 
                                                                         <input name="news_id" type="hidden" value="{{$singleNews->id}}">
@@ -176,6 +178,17 @@
                                                                         <div class="mb-3">
                                                                             <label for="image" class="form-label">Image</label>
                                                                             <input type="file" class="form-control" name='image' id="image">
+                                                                        </div>
+
+                                                                        <div class="mb-3">
+                                                                            <label for="section" class="form-label">Event</label>
+                                                                            <select class="form-select" aria-label="location" name="location">
+                                                                                <option selected value= "">Select Event</option>
+                                                                                <option value="">General</option>
+                                                                                @foreach($events as $event)
+                                                                                <option value="{{$event->id}}">{{ $event->title }}</option>
+                                                                                @endforeach
+                                                                            </select>
                                                                         </div>
                                         
                                                                         <div class="mb-3">
@@ -246,7 +259,7 @@
                     </div>
 
                     <div class="modal-body">
-                        <form action="{{ url('/admin/addNews') }}" method="post" enctype="multipart/form-data">
+                        <form action="{{ url('/addNews') }}" method="post" enctype="multipart/form-data">
                             @csrf
                             <div class="mb-3">
                                 <label for="newsTitle" class="form-label">Title</label>
@@ -261,6 +274,17 @@
                             <div class="mb-3">
                                 <label for="image" class="form-label">Image</label>
                                 <input type="file" class="form-control" name='image' id="image">
+                            </div>
+
+                            <div class="mb-3">
+                                <label for="section" class="form-label">Event</label>
+                                <select class="form-select" aria-label="location" name="location">
+                                    <option selected value= "">Select Event</option>
+                                    <option value="">General</option>
+                                    @foreach($events as $event)
+                                        <option value="{{$event->id}}">{{ $event->title }}</option>
+                                    @endforeach
+                                </select>
                             </div>
 
                             <div class="mb-3">
