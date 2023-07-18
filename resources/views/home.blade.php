@@ -20,66 +20,211 @@
                 </div>
             </div>
             <!-- end page title -->
-
             <div class="row">
-                <div class="col-xl-4 col-md-6">
-                    <div class="card  bg-success card-height-100">
-                        <div class="card-body">
-                            <div class="d-flex align-items-center">
-                                <div class="avatar-sm flex-shrink-0">
-                                    <span class="avatar-title bg-info text-white rounded-2 fs-2 shadow">
-                                        <i class="bx bxs-user-account"></i>
-                                    </span>
-                                </div>
-                                <div class="flex-grow-1 ms-3">
-                                    <p class="text-uppercase fw-medium text-white-50 mb-3">Unique Visitor(s)</p>
-                                    <h4 class="fs-4 mb-3 text-white"><span class="counter-value" data-target="30">30</span></h4>
-                                </div>
+                <div class="col-lg-6">
+                    <div class="card">
+                        <div class="card-header align-items-center d-flex">
+                            <h4 class="card-title mb-0 flex-grow-1">Site Information</h4>
+                            <div class="flex-shrink-0">
+                                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#editSiteInfo">{{ empty($siteInfo) ? 'Add Site Information' : 'Update Site Information' }}</button>
                             </div>
-                        </div><!-- end card body -->
-                    </div>
-                </div> <!-- end col-->
-
-                <div class="col-xl-4 col-md-6">
-                    <div class="card card-height-100">
+                        </div><!-- end card header -->
+                        @if(!empty($siteInfo))
                         <div class="card-body">
-                            <div class="d-flex align-items-center">
-                                <div class="avatar-sm flex-shrink-0">
-                                    <span class="avatar-title bg-warning text-white rounded-2 fs-2 shadow">
-                                        <i class="bx bxs-user-account"></i>
-                                    </span>
-                                </div>
-                                <div class="flex-grow-1 ms-3">
-                                    <p class="text-uppercase fw-medium text-muted mb-3">Newsletters</p>
-                                    <h4 class="fs-4 mb-3"><span class="counter-value" data-target="30">30</span></h4>
-                                </div>
+                            <div class="row mb-2">
+                                <div class="col-sm-6 col-xl-12">
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <img class="rounded shadow" width="100%" src="{{asset($siteInfo->logo)}}" alt="Card image cap"> 
+                                            <p>Logo</p>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <img class="rounded shadow" src="{{asset($siteInfo->footer_logo)}}" width="100%" alt="Card image cap">
+                                            <p>Footer Logo</p>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <img class="rounded shadow" width="100%" src="{{asset($siteInfo->banner)}}" alt="Card image cap"> 
+                                            <p>Banner</p>
+                                        </div>
+                                    </div>
+                                    <!-- Simple card -->
+                                    <p class="card-text"><strong>Description: </strong><?php echo $siteInfo->description ?></p>
+                                    <hr>
+                                    <p class="card-text"><strong>Tagline: </strong><?php echo $siteInfo->slogan ?></p>
+                                    <hr>
+                                    <p class="card-text"><strong>Keywords: </strong><?php echo $siteInfo->keyword ?></p>
+                                    <hr>
+                                    <p class="card-text"><strong>Address: </strong><?php echo $siteInfo->address ?></p>
+                                    <hr>
+                                    <p class="card-text"><strong>Phone Number(s): </strong><?php echo $siteInfo->phone ?></p>
+                                    <hr>
+                                    <p class="card-text"><strong>Email(s): </strong><?php echo $siteInfo->email ?></p>
+                                    <hr>
+                                    <p class="card-text"><strong>Start Year: </strong><?php echo $siteInfo->start_year ?></p>
+                                    <div class="text-end">
+                                        <a href="javascript:void(0);" data-bs-toggle="modal" data-bs-target="#editSiteInfo" class="btn btn-primary">Edit Site Information</a>
+                                    </div>
+                                </div><!-- end col -->
                             </div>
-                        </div><!-- end card body -->
-                    </div>
-                </div> <!-- end col-->
-
-                <div class="col-xl-4 col-md-6">
-                    <div class="card card-height-100">
+                        </div>
+                        @endif
+                    </div><!-- end card -->
+                </div>
+                <!-- end col -->
+            
+                <div class="col-lg-6">
+                    <div class="card">
+                        <div class="card-header align-items-center d-flex">
+                            <h4 class="card-title mb-0 flex-grow-1">Social Accounts</h4>
+                            <div class="flex-shrink-0">
+                                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#editSocial">{{ empty($social) ? 'Add Social Accounts' : 'Update Social Accounts' }}</button>
+                            </div>
+                        </div><!-- end card header -->
+                        @if(!empty($social))
                         <div class="card-body">
-                            <div class="d-flex align-items-center">
-                                <div class="avatar-sm flex-shrink-0">
-                                    <span class="avatar-title bg-success text-white rounded-2 fs-2 shadow">
-                                        <i class="bx bxs-user-account"></i>
-                                    </span>
-                                </div>
-                                <div class="flex-grow-1 ms-3">
-                                    <p class="text-uppercase fw-medium text-muted mb-3">Faculties</p>
-                                    <h4 class="fs-4 mb-3"><span class="counter-value" data-target="30">30</span></h4>
-                                </div>
+                            <div class="row mb-2">
+                                <div class="col-sm-6 col-xl-12">
+                                    <!-- Simple card -->
+                                    <p class="card-text"><strong>Youtube Link:</strong> <a href="https://www.youtube.com/{{ $social->youtube }}" target="blank">https://www.youtube.com/{{ $social->youtube }}</a></p>
+                                    <p class="card-text"><strong>Facebook Link:</strong> <a href="https://www.facebook.com/{{ $social->facebook }}" target="blank">https://www.facebook.com/{{ $social->facebook }}</a></p>
+                                    <p class="card-text"><strong>Twitter Link:</strong> <a href="https://www.twitter.com/{{ $social->twitter }}" target="blank">https://www.twitter.com/{{ $social->twitter }}</a></p>
+                                    <p class="card-text"><strong>Instagram Link:</strong> <a href="https://www.instagram.com/{{ $social->instagram }}" target="blank">https://www.instagram.com/{{ $social->instagram }}</a></p>
+                                    <p class="card-text"><strong>LinkedIn Link:</strong> <a href="https://www.linkedin.com/{{ $social->linkedin }}" target="blank">https://www.linkedin.com/{{ $social->linkedin }}</a></p>
+                                    <div class="text-end">
+                                        <a href="javascript:void(0);" data-bs-toggle="modal" data-bs-target="#editSocial" class="btn btn-primary">Edit Social</a>
+                                    </div>
+                                </div><!-- end col -->
                             </div>
-                        </div><!-- end card body -->
-                    </div>
-                </div> <!-- end col-->
-            </div> <!-- end row-->
+                        </div>
+                        @endif
+                    </div><!-- end card -->
+                </div>
+            </div>
+            <!-- end row -->
 
             <hr>
             <div class="row">
-                
+                <div class="col-lg-12">
+                    <div class="card">
+                        <div class="card-header align-items-center d-flex">
+                            <h4 class="card-title mb-0 flex-grow-1">Event</h4>
+                        </div><!-- end card header -->
+    
+                        <div class="card-body">
+                            <div class="row">
+                                @foreach($events as $event)
+                                <div class="col-sm-6 col-xl-3">
+                                    <!-- Simple card -->
+                                    <div class="card">
+                                        <div class="card-body">
+                                            <img class="rounded shadow" alt="{{ $event->image }}" width="100%" src="{{ asset($event->image) }}">
+                                            <hr>
+                                            <h4 class="card-title mb-2">{{ $event->title }}</h4>
+                                            <div class="text-start">
+                                                <a href="{{url('/event/'.$event->slug)}}" class="btn btn-info">View</a>
+                                                <a href="javascript:void(0);" data-bs-toggle="modal" data-bs-target="#editEvent{{$event->id}}" style="margin: 5px" class="btn btn-primary">Edit Event</a>
+                                                <a href="javascript:void(0);" data-bs-toggle="modal" data-bs-target="#deleteEvent{{$event->id}}" style="margin: 5px" class="btn btn-danger">Delete Event</a>
+                                            </div>
+                                        </div>
+                                    </div><!-- end card -->
+    
+                                    <div id="editEvent{{$event->id}}" class="modal fade" tabindex="-1" aria-hidden="true" style="display: none;">
+                                        <div class="modal-dialog modal-dialog-centered modal-xl">
+                                            <div class="modal-content border-0 overflow-hidden">
+                                                <div class="modal-header p-3">
+                                                    <h4 class="card-title mb-0">Update Event</h4>
+                                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                </div>
+    
+                                                <div class="modal-body">
+                                                    <form action="{{ url('/updateEvent') }}" method="post" enctype="multipart/form-data">
+                                                        @csrf
+                                                        <input type="hidden" name='event_id' value="{{ $event->id }}">
+                                                        
+                                                        <div class="mb-3">
+                                                            <label for="title" class="form-label">Event Name</label>
+                                                            <input type="text" class="form-control" name="title" id="title" value="{{ $event->title }}">
+                                                        </div>
+                            
+                                                        <div class="mb-3">
+                                                            <label for="description" class="form-label">A little description of the event</label>
+                                                            <textarea class="form-control" name="description" id="description">{{ $event->description }}</textarea>
+                                                        </div>
+                            
+                                                        <div class="mb-3">
+                                                            <label for="about" class="form-label">A detail description of the event</label>
+                                                            <textarea class="form-control" name="about" id="about">{{ $event->about }}</textarea>
+                                                        </div>
+                            
+                                                        <div class="mb-3">
+                                                            <label for="date" class="form-label">Starting date of event</label>
+                                                            <input type="date" class="form-control" name="date" id="date" value="{{ $event->date }}">
+                                                        </div>
+                            
+                                                        <div class="mb-3">
+                                                            <label for="days" class="form-label">How many day(s) will the event last</label>
+                                                            <input type="number" class="form-control" name="days" id="days" value="{{ $event->days }}">
+                                                        </div>
+                            
+                                                        <div class="mb-3">
+                                                            <label for="ticket_amount" class="form-label">How much is the ticket(₦)</label>
+                                                            <input type="number" min="2000" class="form-control" name="ticket_amount" id="ticket_amount" value="{{ $event->ticket_amount }}">
+                                                        </div>
+                                                        
+                                                        <div class="mb-3">
+                                                            <label for="exhibition_amount" class="form-label">How much is exhibitors to pay(₦)</label>
+                                                            <input type="number" min="5000" class="form-control" name="exhibition_amount" id="exhibition_amount" value="{{ $event->exhibition_amount }}">
+                                                        </div>
+                            
+                                                        <div class="mb-3">
+                                                            <label for="image" class="form-label">Image <code>Dimension: 870px by 413px</code></label>
+                                                            <input type="file" class="form-control" name='image' id="image">
+                                                        </div>
+    
+                                                        <hr>
+                                                        <div class="text-end">
+                                                            <button type="submit" class="btn btn-primary">Save Changes</button>
+                                                        </div>
+                                                    </form>
+                                                </div>
+                                            </div><!-- /.modal-content -->
+                                        </div><!-- /.modal-dialog -->
+                                    </div><!-- /.modal -->
+    
+                                    <div id="deleteEvent{{$event->id}}" class="modal fade" tabindex="-1" aria-hidden="true" style="display: none;">
+                                        <div class="modal-dialog modal-dialog-centered">
+                                            <div class="modal-content">
+                                                <div class="modal-body text-center p-5">
+                                                    <div class="text-end">
+                                                        <button type="button" class="btn-close text-end" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                    </div>
+                                                    <div class="mt-2">
+                                                        <lord-icon src="https://cdn.lordicon.com/wwneckwc.json" trigger="hover" style="width:150px;height:150px">
+                                                        </lord-icon>
+                                                        <h4 class="mb-3 mt-4">Are you sure you want to delete <br>{{ $event->title }}?</h4>
+                                                        <form action="{{ url('/deleteEvent') }}" method="POST">
+                                                            @csrf
+                                                            <input name="event_id" type="hidden" value="{{$event->id}}">
+    
+                                                            <hr>
+                                                            <button type="submit" class="btn btn-danger w-100">Yes, Delete</button>
+                                                        </form>
+                                                    </div>
+                                                </div>
+                                                <div class="modal-footer bg-light p-3 justify-content-center">
+    
+                                                </div>
+                                            </div><!-- /.modal-content -->
+                                        </div><!-- /.modal-dialog -->
+                                    </div><!-- /.modal -->
+                                </div><!-- end col -->
+                            @endforeach
+                            </div>
+                        </div>
+                    </div><!-- end card -->
+                </div>
             </div>
             <!-- end row -->
 

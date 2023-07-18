@@ -51,7 +51,15 @@ class HomeController extends Controller
      */
     public function index()
     {
-        return view('home');
+        $events = Event::all();
+        $setting = Setting::first();
+        $social = Social::first();
+
+        return view('home',[
+            'events' => $events,
+            'siteInfo' => $setting,
+            'social' => $social
+        ]);
     }
 
     public function setting(){

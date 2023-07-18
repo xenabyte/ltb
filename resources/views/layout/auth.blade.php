@@ -45,12 +45,12 @@
                                         <div class="position-relative h-100 d-flex flex-column">
                                             <div class="mb-4">
                                                 <a href="{{url('/')}}" class="d-block">
-                                                    <img src="{{asset('images/logob.png')}}" alt="" height="">
+                                                    <img src="{{ asset($pageGlobalData->setting->footer_logo) }}" alt="" height="200">
                                                 </a>
                                             </div>
                                             <div class="mt-auto">
                                                 <div class="mb-3">
-                                                    <i class="ri-double-quotes-l display-4 text-success"></i>
+                                                    <i class="ri-double-quotes-l display-4 text-light"></i>
                                                 </div>
 
                                                 <div id="qoutescarouselIndicators" class="carousel slide" data-bs-ride="carousel">
@@ -61,14 +61,14 @@
                                                     </div>
                                                     <div class="carousel-inner text-center text-white pb-5">
                                                         <div class="carousel-item active">
-                                                            <p class="fs-15 fst-italic">" Great! Clean code, clean design, easy for customization. Thanks very much! "</p>
+                                                            <p class="fs-15 fst-italic">" Leave The Box AFRICA "</p>
                                                         </div>
                                                         <div class="carousel-item">
-                                                            <p class="fs-15 fst-italic">" The theme is really great with an amazing customer support."</p>
+                                                            <p class="fs-15 fst-italic">" Creativity and Innovation "</p>
                                                         </div>
                                                         <div class="carousel-item">
-                                                            <p class="fs-15 fst-italic">" Great! Clean code, clean design, easy for customization. Thanks very much! "</p>
-                                                        </div>j
+                                                            <p class="fs-15 fst-italic">" Impact and Excellence "</p>
+                                                        </div>
                                                     </div>
                                                 </div>
                                                 <!-- end carousel -->
