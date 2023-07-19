@@ -284,7 +284,7 @@ $team = $event->features->where('type','Team');
             <div class="col-md-4 col-12 mt-4 pt-2">
                 <div class="card pricing pricing-primary best-plan bg-light text-center border-0 rounded">
                     <div class="card-body py-5">
-                        <img src="landing_assets/images/icon/ticket1.svg" class="mb-4" height="50" alt="">
+                        <img src="landingAssets/images/icon/ticket1.svg" class="mb-4" height="50" alt="">
                         <h6 class="title text-uppercase fw-bold mb-4">1 Day Tickets</h6>
                         <div class="d-flex justify-content-center mb-4">
                             <span class="h4 mb-0 mt-2">$</span>
@@ -302,7 +302,7 @@ $team = $event->features->where('type','Team');
                 <div class="card pricing pricing-primary best-plan text-center border-0 shadow rounded">
                     <div class="ribbon ribbon-right ribbon-warning overflow-hidden"><span class="text-center d-block shadow small h6">Best</span></div>
                     <div class="card-body py-5">
-                        <img src="landing_assets/images/icon/ticket2.svg" class="mb-4" height="50" alt="">
+                        <img src="landingAssets/images/icon/ticket2.svg" class="mb-4" height="50" alt="">
                         <h6 class="title text-uppercase fw-bold mb-4">Full Tickets</h6>
                         <div class="d-flex justify-content-center mb-4">
                             <span class="h4 mb-0 mt-2">$</span>
@@ -319,7 +319,7 @@ $team = $event->features->where('type','Team');
             <div class="col-md-4 col-12 mt-4 pt-2">
                 <div class="card pricing pricing-primary best-plan bg-light text-center border-0 rounded">
                     <div class="card-body py-5">
-                        <img src="landing_assets/images/icon/ticket3.svg" class="mb-4" height="50" alt="">
+                        <img src="landingAssets/images/icon/ticket3.svg" class="mb-4" height="50" alt="">
                         <h6 class="title text-uppercase fw-bold mb-4">Couple Tickets</h6>
                         <div class="d-flex justify-content-center mb-4">
                             <span class="h4 mb-0 mt-2">$</span>
@@ -351,7 +351,7 @@ $team = $event->features->where('type','Team');
                     <div class="tiny-slide">
                         <div class="client-testi text-center">
                             <p class="text-muted h6 fst-italic">" It seems that only fragments of the original text remain in the Lorem Ipsum texts used today. The most well-known dummy text is the 'Lorem Ipsum', which is said to have originated in the 16th century. "</p>
-                            <img src="landing_assets/images/client/01.jpg" class="img-fluid avatar avatar-small mt-3 rounded-circle mx-auto shadow" alt="">
+                            <img src="landingAssets/images/client/01.jpg" class="img-fluid avatar avatar-small mt-3 rounded-circle mx-auto shadow" alt="">
                             <ul class="list-unstyled mb-0 mt-3">
                                 <li class="list-inline-item"><i class="mdi mdi-star text-warning"></i></li>
                                 <li class="list-inline-item"><i class="mdi mdi-star text-warning"></i></li>
@@ -366,7 +366,7 @@ $team = $event->features->where('type','Team');
                     <div class="tiny-slide">
                         <div class="client-testi text-center">
                             <p class="text-muted h6 fst-italic">" The advantage of its Latin origin and the relative meaninglessness of Lorum Ipsum is that the text does not attract attention to itself or distract the viewer's attention from the layout. "</p>
-                            <img src="landing_assets/images/client/02.jpg" class="img-fluid avatar avatar-small mt-3 rounded-circle mx-auto shadow" alt="">
+                            <img src="landingAssets/images/client/02.jpg" class="img-fluid avatar avatar-small mt-3 rounded-circle mx-auto shadow" alt="">
                             <ul class="list-unstyled mb-0 mt-3">
                                 <li class="list-inline-item"><i class="mdi mdi-star text-warning"></i></li>
                                 <li class="list-inline-item"><i class="mdi mdi-star text-warning"></i></li>
@@ -381,7 +381,7 @@ $team = $event->features->where('type','Team');
                     <div class="tiny-slide">
                         <div class="client-testi text-center">
                             <p class="text-muted h6 fst-italic">" There is now an abundance of readable dummy texts. These are usually used when a text is required purely to fill a space. These alternatives to the classic Lorem Ipsum texts are often amusing and tell short, funny or nonsensical stories. "</p>
-                            <img src="landing_assets/images/client/03.jpg" class="img-fluid avatar avatar-small mt-3 rounded-circle mx-auto shadow" alt="">
+                            <img src="landingAssets/images/client/03.jpg" class="img-fluid avatar avatar-small mt-3 rounded-circle mx-auto shadow" alt="">
                             <ul class="list-unstyled mb-0 mt-3">
                                 <li class="list-inline-item"><i class="mdi mdi-star text-warning"></i></li>
                                 <li class="list-inline-item"><i class="mdi mdi-star text-warning"></i></li>
@@ -396,7 +396,7 @@ $team = $event->features->where('type','Team');
                     <div class="tiny-slide">
                         <div class="client-testi text-center">
                             <p class="text-muted h6 fst-italic">" According to most sources, Lorum Ipsum can be traced back to a text composed by Cicero in 45 BC. Allegedly, a Latin scholar established the origin of the text by compiling all the instances of the unusual word 'consectetur' he could find "</p>
-                            <img src="landing_assets/images/client/04.jpg" class="img-fluid avatar avatar-small mt-3 rounded-circle mx-auto shadow" alt="">
+                            <img src="landingAssets/images/client/04.jpg" class="img-fluid avatar avatar-small mt-3 rounded-circle mx-auto shadow" alt="">
                             <ul class="list-unstyled mb-0 mt-3">
                                 <li class="list-inline-item"><i class="mdi mdi-star text-warning"></i></li>
                                 <li class="list-inline-item"><i class="mdi mdi-star text-warning"></i></li>
@@ -411,7 +411,7 @@ $team = $event->features->where('type','Team');
                     <div class="tiny-slide">
                         <div class="client-testi text-center">
                             <p class="text-muted h6 fst-italic">" It seems that only fragments of the original text remain in the Lorem Ipsum texts used today. The most well-known dummy text is the 'Lorem Ipsum', which is said to have originated in the 16th century. "</p>
-                            <img src="landing_assets/images/client/05.jpg" class="img-fluid avatar avatar-small mt-3 rounded-circle mx-auto shadow" alt="">
+                            <img src="landingAssets/images/client/05.jpg" class="img-fluid avatar avatar-small mt-3 rounded-circle mx-auto shadow" alt="">
                             <ul class="list-unstyled mb-0 mt-3">
                                 <li class="list-inline-item"><i class="mdi mdi-star text-warning"></i></li>
                                 <li class="list-inline-item"><i class="mdi mdi-star text-warning"></i></li>
@@ -426,7 +426,7 @@ $team = $event->features->where('type','Team');
                     <div class="tiny-slide">
                         <div class="client-testi text-center">
                             <p class="text-muted h6 fst-italic">" It seems that only fragments of the original text remain in the Lorem Ipsum texts used today. One may speculate that over the course of time certain letters were added or deleted at various positions within the text. "</p>
-                            <img src="landing_assets/images/client/06.jpg" class="img-fluid avatar avatar-small mt-3 rounded-circle mx-auto shadow" alt="">
+                            <img src="landingAssets/images/client/06.jpg" class="img-fluid avatar avatar-small mt-3 rounded-circle mx-auto shadow" alt="">
                             <ul class="list-unstyled mb-0 mt-3">
                                 <li class="list-inline-item"><i class="mdi mdi-star text-warning"></i></li>
                                 <li class="list-inline-item"><i class="mdi mdi-star text-warning"></i></li>

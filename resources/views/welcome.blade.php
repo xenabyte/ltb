@@ -169,7 +169,7 @@ $blogSection = $sections->where('type', 'blog')->first();
                 <div class="tiny-three-item">
                     <div class="tiny-slide">
                         <div class="d-flex client-testi m-2">
-                        <img src="landing_assets/images/client/01.jpg" class="avatar avatar-small client-image rounded shadow" alt="">
+                        <img src="landingAssets/images/client/01.jpg" class="avatar avatar-small client-image rounded shadow" alt="">
                             <div class="card flex-1 content p-3 shadow rounded position-relative">
                                 <ul class="list-unstyled mb-0">
                                     <li class="list-inline-item"><i class="mdi mdi-star text-warning"></i></li>
@@ -186,7 +186,7 @@ $blogSection = $sections->where('type', 'blog')->first();
                     
                     <div class="tiny-slide">
                         <div class="d-flex client-testi m-2">
-                        <img src="landing_assets/images/client/02.jpg" class="avatar avatar-small client-image rounded shadow" alt="">
+                        <img src="landingAssets/images/client/02.jpg" class="avatar avatar-small client-image rounded shadow" alt="">
                             <div class="card flex-1 content p-3 shadow rounded position-relative">
                                 <ul class="list-unstyled mb-0">
                                     <li class="list-inline-item"><i class="mdi mdi-star text-warning"></i></li>
@@ -203,7 +203,7 @@ $blogSection = $sections->where('type', 'blog')->first();
 
                     <div class="tiny-slide">
                         <div class="d-flex client-testi m-2">
-                        <img src="landing_assets/images/client/03.jpg" class="avatar avatar-small client-image rounded shadow" alt="">
+                        <img src="landingAssets/images/client/03.jpg" class="avatar avatar-small client-image rounded shadow" alt="">
                             <div class="card flex-1 content p-3 shadow rounded position-relative">
                                 <ul class="list-unstyled mb-0">
                                     <li class="list-inline-item"><i class="mdi mdi-star text-warning"></i></li>
@@ -220,7 +220,7 @@ $blogSection = $sections->where('type', 'blog')->first();
 
                     <div class="tiny-slide">
                         <div class="d-flex client-testi m-2">
-                        <img src="landing_assets/images/client/04.jpg" class="avatar avatar-small client-image rounded shadow" alt="">
+                        <img src="landingAssets/images/client/04.jpg" class="avatar avatar-small client-image rounded shadow" alt="">
                             <div class="card flex-1 content p-3 shadow rounded position-relative">
                                 <ul class="list-unstyled mb-0">
                                     <li class="list-inline-item"><i class="mdi mdi-star text-warning"></i></li>
@@ -237,7 +237,7 @@ $blogSection = $sections->where('type', 'blog')->first();
 
                     <div class="tiny-slide">
                         <div class="d-flex client-testi m-2">
-                        <img src="landing_assets/images/client/05.jpg" class="avatar avatar-small client-image rounded shadow" alt="">
+                        <img src="landingAssets/images/client/05.jpg" class="avatar avatar-small client-image rounded shadow" alt="">
                             <div class="card flex-1 content p-3 shadow rounded position-relative">
                                 <ul class="list-unstyled mb-0">
                                     <li class="list-inline-item"><i class="mdi mdi-star text-warning"></i></li>
@@ -254,7 +254,7 @@ $blogSection = $sections->where('type', 'blog')->first();
 
                     <div class="tiny-slide">
                         <div class="d-flex client-testi m-2">
-                        <img src="landing_assets/images/client/06.jpg" class="avatar avatar-small client-image rounded shadow" alt="">
+                        <img src="landingAssets/images/client/06.jpg" class="avatar avatar-small client-image rounded shadow" alt="">
                             <div class="card flex-1 content p-3 shadow rounded position-relative">
                                 <ul class="list-unstyled mb-0">
                                     <li class="list-inline-item"><i class="mdi mdi-star text-warning"></i></li>

@@ -17,16 +17,16 @@
         <link rel="shortcut icon" href="{{asset('favicon.ico')}}">
         
         <!-- Css -->
-        <link href="{{asset('landing_assets/libs/tiny-slider/tiny-slider.css')}}" rel="stylesheet">
-        <link href="{{asset('landing_assets/libs/swiper/css/swiper.min.css')}}" rel="stylesheet">
-        <link href="{{asset('landing_assets/libs/tobii/css/tobii.min.css')}}" rel="stylesheet">
+        <link href="{{asset('landingAssets/libs/tiny-slider/tiny-slider.css')}}" rel="stylesheet">
+        <link href="{{asset('landingAssets/libs/swiper/css/swiper.min.css')}}" rel="stylesheet">
+        <link href="{{asset('landingAssets/libs/tobii/css/tobii.min.css')}}" rel="stylesheet">
         <!-- Bootstrap Css -->
-        <link href="{{asset('landing_assets/css/bootstrap.min.css')}}" id="bootstrap-style" class="theme-opt" rel="stylesheet" type="text/css">
+        <link href="{{asset('landingAssets/css/bootstrap.min.css')}}" id="bootstrap-style" class="theme-opt" rel="stylesheet" type="text/css">
         <!-- Icons Css -->
-        <link href="{{asset('landing_assets/libs/@mdi/font/css/materialdesignicons.min.css')}}" rel="stylesheet" type="text/css">
-        <link href="{{asset('landing_assets/libs/@iconscout/unicons/css/line.css')}}" type="text/css" rel="stylesheet">
+        <link href="{{asset('landingAssets/libs/@mdi/font/css/materialdesignicons.min.css')}}" rel="stylesheet" type="text/css">
+        <link href="{{asset('landingAssets/libs/@iconscout/unicons/css/line.css')}}" type="text/css" rel="stylesheet">
         <!-- Style Css-->
-        <link href="{{asset('landing_assets/css/style.min.css')}}" id="color-opt" class="theme-opt" rel="stylesheet" type="text/css">
+        <link href="{{asset('landingAssets/css/style.min.css')}}" id="color-opt" class="theme-opt" rel="stylesheet" type="text/css">
     </head>
 
     <body>

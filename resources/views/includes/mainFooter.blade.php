@@ -102,15 +102,15 @@
 
         <!-- javascript -->
         <!-- JAVASCRIPT -->
-        <script src="{{asset('landing_assets/libs/bootstrap/js/bootstrap.bundle.min.js')}}"></script>
+        <script src="{{asset('landingAssets/libs/bootstrap/js/bootstrap.bundle.min.js')}}"></script>
         <!-- SLIDER -->
-        <script src="{{asset('landing_assets/libs/tiny-slider/min/tiny-slider.js')}}"></script>
-        <script src="{{asset('landing_assets/libs/swiper/js/swiper.min.js')}}"></script>
+        <script src="{{asset('landingAssets/libs/tiny-slider/min/tiny-slider.js')}}"></script>
+        <script src="{{asset('landingAssets/libs/swiper/js/swiper.min.js')}}"></script>
         <!-- Lightbox -->
-        <script src="{{asset('landing_assets/libs/tobii/js/tobii.min.js')}}"></script>
+        <script src="{{asset('landingAssets/libs/tobii/js/tobii.min.js')}}"></script>
         <!-- Main Js -->
-        <script src="{{asset('landing_assets/libs/feather-icons/feather.min.js')}}"></script>
-        <script src="{{asset('landing_assets/js/plugins.init.js')}}"></script><!--Note: All init js like tiny slider, counter, countdown, maintenance, lightbox, gallery, swiper slider, aos animation etc.-->
-        <script src="{{asset('landing_assets/js/app.js')}}"></script><!--Note: All important javascript like page loader, menu, sticky menu, menu-toggler, one page menu etc. -->
+        <script src="{{asset('landingAssets/libs/feather-icons/feather.min.js')}}"></script>
+        <script src="{{asset('landingAssets/js/plugins.init.js')}}"></script><!--Note: All init js like tiny slider, counter, countdown, maintenance, lightbox, gallery, swiper slider, aos animation etc.-->
+        <script src="{{asset('landingAssets/js/app.js')}}"></script><!--Note: All important javascript like page loader, menu, sticky menu, menu-toggler, one page menu etc. -->
     </body>
 </html>
